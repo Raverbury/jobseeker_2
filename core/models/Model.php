@@ -37,5 +37,3 @@ abstract class Model {
 		return $this->result;
 	}
 }
-
-?>

@@ -4,12 +4,12 @@ class LoginModel extends Model {
 	public function executeQuery($params) { // $params should be $_POST, passed from a controller
 		// extracting, validating login info
 		$username = htmlspecialchars($params['username']);
-		if ($username === '') {
+		if ($username == '') {
 			$this->result['message'] = 'The username cannot be empty.';
 			return;
 		}
 		$password = htmlspecialchars($params['password']);
-		if ($password === '') {
+		if ($password == '') {
 			$this->result['message'] = 'The password cannot be empty.';
 			return;
 		}
@@ -55,5 +55,3 @@ class LoginModel extends Model {
 		}
 	}
 }
-
-?>

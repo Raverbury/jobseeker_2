@@ -4,21 +4,21 @@ class RegisterModel extends Model {
 	public function executeQuery($params) { // $params should be $_POST, passed from a controller
 		// extracting, validating registration info
 		$username = htmlspecialchars($params['username']);
-		if ($username === '') {
+		if ($username == '') {
 			$this->result['message'] = 'The username cannot be empty.';
 			return;
 		}
 		$password = htmlspecialchars($params['password']);
-		if ($password === '') {
+		if ($password == '') {
 			$this->result['message'] = 'The password cannot be empty.';
 			return;
 		}
 		$retypePassword = htmlspecialchars($params['retypePassword']);
-		if ($retypePassword === '') {
+		if ($retypePassword == '') {
 			$this->result['message'] = 'The retyped password cannot be empty.';
 			return;
 		}
-		if ($password !== $retypePassword) {
+		if ($password != $retypePassword) {
 			$this->result['message'] = 'The passwords do not match.';
 			return;
 		}
@@ -89,5 +89,3 @@ class RegisterModel extends Model {
 		}
 	}
 }
-
-?>

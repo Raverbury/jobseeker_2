@@ -7,8 +7,9 @@ class RouterController extends Controller {
 		session_start();
 		if (!isset($_SESSION['id'])) {
 			$_SESSION['username'] = 'Guest';
-			$_SESSION['id'] = 0;
+			$_SESSION['id'] = -1;
 			$_SESSION['role'] = 'guest';
+			$_SESSION['isLoggedIn'] = false;
 		}
 	}
 
@@ -43,5 +44,3 @@ class RouterController extends Controller {
 		return $text;
 	}
 }
-
-?>

@@ -8,10 +8,11 @@ class RegisterController extends Controller {
 			$registerModel = new RegisterModel();
 			$registerModel->executeQuery($_POST);
 			$result = $registerModel->getResult();
-			if ($result['message'] === 'OK') {
+			if ($result['message'] == 'OK') {
 				$_SESSION['username'] = $result['username'];
 				$_SESSION['id'] = $result['id'];
 				$_SESSION['role'] = $result['role'];
+				$_SESSION['isLoggedIn'] = true;
 				$this->redirect('home');
 			}
 			else {
@@ -21,14 +22,12 @@ class RegisterController extends Controller {
 		}
 		// without $_POST aka first time viewing the page
 		else {
-			if ($_SESSION['role'] === 'guest') {
-				$this->view = 'register';
+			if ($_SESSION['isLoggedIn']) {
+				$this->redirect('home');
 			}
 			else {
-				$this->redirect('home');
+				$this->view = 'register';
 			}
 		}
   }
 }
-
-?>
