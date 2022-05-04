@@ -21,10 +21,12 @@ class RegisterController extends Controller
 						$_SESSION['isLoggedIn'] = true;
             $_SESSION['message'] = 'User has been registered';
             $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'success';
 						$this->redirect('home');
 					} else {
 						$_SESSION['message'] = $result['message'];
             $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'danger';
 						$this->view = 'register';
 					}
 				}

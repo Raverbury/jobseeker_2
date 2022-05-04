@@ -12,6 +12,7 @@ class RouterController extends Controller {
 			$_SESSION['isLoggedIn'] = false;
       $_SESSION['message'] = '';
       $_SESSION['showMessage'] = false;
+      $_SESSION['messageType'] = 'primary';
 		}
 	}
 

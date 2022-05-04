@@ -21,10 +21,12 @@ class LoginController extends Controller
 						$_SESSION['isLoggedIn'] = true;
             $_SESSION['message'] = 'Logged in successfully';
             $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'success';
 						$this->redirect('home');
 					} else {
 						$_SESSION['message'] = $result['message'];
             $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'danger';
 						$this->view = 'login';
 					}
 				}
