@@ -1,25 +1,34 @@
 <?php
 
 class LoginModel extends Model {
-	public function executeQuery($params) { // $params should be $_POST, passed from a controller
-		// extracting, validating login info
-		$username = htmlspecialchars($params['username']);
-		if ($username == '') {
+  private $username;
+  private $password;
+  public function loadParams($username, $password) {
+    $this->username = $username;
+    $this->password = $password;
+  }
+  private function validate() {
+    if ($this->username == '') {
 			$this->result['message'] = 'The username cannot be empty.';
-			return;
+			return false;
 		}
-		$password = htmlspecialchars($params['password']);
-		if ($password == '') {
+		if ($this->password == '') {
 			$this->result['message'] = 'The password cannot be empty.';
-			return;
+			return false;
 		}
+    return true;
+  }
+	public function executeQuery() {
+    if ($this->validate() == false) {
+      return;
+    }
 		$id = NULL;
 		$role = NULL;
 		$retrievedPassword = NULL;
 		// retrieving user info
 		$query = 'SELECT id, username, password, role FROM users WHERE username = ?';
 		if ($statement = $this->dbInstance->prepare($query)) {
-			$statement->bind_param('s', $username);
+			$statement->bind_param('s', $this->username);
 		}
 		else {
 			$this->result['message'] = 'Something went wrong. Please try again later.';
@@ -30,7 +39,7 @@ class LoginModel extends Model {
 			if ($statement->num_rows == 1) {
 				$statement->bind_result($id, $username, $retrievedPassword, $role);
 				if ($statement->fetch()) {
-					if (password_verify($password, $retrievedPassword)) {
+					if (password_verify($this->password, $retrievedPassword)) {
 						$this->result['message'] = 'OK';
 						$this->result['id'] = $id;
 						$this->result['username'] = $username;

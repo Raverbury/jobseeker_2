@@ -45,7 +45,7 @@
 					<?php
 					if ($_SESSION['isLoggedIn']) {
 						echo '<li class="nav-item">
-	        		<a class="nav-link text-light">Logged in as ' . $_SESSION['username'] . ' (' . $_SESSION['id'] . ': ' . $_SESSION['role'] . ')</a>
+	        		<a class="nav-link text-light">Logged in as ' . $_SESSION['username'] . ' (#' . $_SESSION['id'] . ': ' . $_SESSION['role'] . ')</a>
       			</li>';
 					}
 					?>
@@ -53,6 +53,17 @@
 			</div>
 		</nav>
 	</header>
+
+  <div class="container my-2" id="messageBox">
+    <?php
+	    if (isset($_SESSION['showMessage'])) {
+        if ($_SESSION['showMessage']) {
+		      echo '<div class="alert alert-info">' . $_SESSION['message'] . '</div>';
+          $_SESSION['showMessage'] = false;
+        }
+	    }
+	  ?>
+  </div>
 
 	<article class="container mt-2 mb-4">
 		<?php $this->controller->renderView(); ?>
