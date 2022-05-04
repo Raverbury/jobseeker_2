@@ -20,6 +20,7 @@
 			<select id="role" class="form-select" name="role">
 				<option value="candidate">Candidate</option>
 				<option value="employer">Employer</option>
+        <option value="admin">Admin</option>
 			</select>
 		</div>
 		<input class="btn btn-primary m-1" type="submit">
