@@ -27,6 +27,42 @@
 	</form>
   </div>
   <div class="container">
+    <h2>Search options</h2>
+    <form id="searchForm" name="searchForm" class="bg-light p-2" action="admin/viewAllUsers" method="get">
+    <div class="m-1 form-group">
+			<label for="page" hidden>Page:</label>
+			<input type="text" hidden id="page" class="form-control" name="page" value="<?php echo $currentPage?>">
+		</div>
+		<div class="m-1 form-group">
+			<label for="searchUsername">Search username:</label>
+			<input type="text" id="searchUsername" class="form-control" name="searchUsername" value="<?php if (isset($_GET['searchUsername'])) echo $_GET['searchUsername'];?>">
+		</div>
+		<div class="m-1 form-group">
+			<label for="filterRole">Filter role:</label>
+			<select id="filterRole" class="form-select" name="filterRole">
+        <?php
+          $valueList = ['', 'candidate', 'employer', 'admin'];
+          $optionTextList = ['All', 'Candidate', 'Employer', 'Admin'];
+          for ($i = 0; $i < count($valueList); $i++) {
+            $selected = '';
+            if (isset($_GET['filterRole'])) {
+              if ($_GET['filterRole'] == $valueList[$i]) {
+                $selected = 'selected';
+              }
+              else {
+                $selected = '';
+              }
+            }
+            $line = '<option value="'.$valueList[$i].'" '.$selected.'>'.$optionTextList[$i].'</option>';
+            echo $line;
+          }
+        ?>
+			</select>
+		</div>
+		<input class="btn btn-primary m-1" type="submit">
+	</form>
+  </div>
+  <div class="container">
     <h2>Users</h2>
     <table class="table table-responsive-md table-bordered table-striped">
       <thead class="table-dark">
@@ -49,13 +85,13 @@
       </tbody>
     </table>
   </div>
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation">
     <ul class="pagination justify-content-end">
       <?php
       if ($currentPage == 1) echo '<li class="page-item disabled">';
       else echo '<li class="page-item">';
       ?>
-      <a class="page-link" href="admin/viewAllUsers?page=<?php echo $currentPage - 1 ?>" tabindex="-1">Previous</a>
+      <input class="page-link" type="button" value="Previous" onclick="submitSearch(<?php echo $currentPage-1?>)">
       </li>
       <?php
       $minCells = $numOfPages;
@@ -77,16 +113,16 @@
       $start = $currentPage - floor($minCells / 2) - ceil($minCells / 2);
       for ($i = $startPage + 1; $i <= $minCells; $i++) {
         if ($i == $currentPage)
-          echo '<li class="page-item disabled"><a class="page-link" href="admin/viewAllUsers?page=' . $i . '">' . $i . '</a></li>';
+          echo '<li class="page-item disabled"><input class="page-link" type="button" value="'.$i.'" onclick="submitSearch('.$i.')"></li>';
         else
-          echo '<li class="page-item"><a class="page-link" href="admin/viewAllUsers?page=' . $i . '">' . $i . '</a></li>';
+          echo '<li class="page-item"><input class="page-link" type="button" value="'.$i.'" onclick="submitSearch('.$i.')"></li>';
       }
       ?>
       <?php
       if ($currentPage == $numOfPages) echo '<li class="page-item disabled">';
       else echo '<li class="page-item">';
       ?>
-      <a class="page-link" href="admin/viewAllUsers?page=<?php echo $currentPage + 1 ?>">Next</a>
+      <input class="page-link" type="button" value="Next" onclick="submitSearch(<?php echo $currentPage+1?>)">
       </li>
     </ul>
   </nav>
@@ -111,4 +147,9 @@
 		}
 		return true;
 	}
+
+  let submitSearch = (page) => {
+    document.forms["searchForm"]["page"].value = page;
+    document.getElementById("searchForm").submit();
+  }
 </script>

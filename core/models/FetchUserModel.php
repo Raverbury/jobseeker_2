@@ -2,13 +2,20 @@
 
 class FetchUserModel extends Model {
   private $currentPage;
+  private $searchUsername;
+  private $filterRole;
   private $entriesPerPage = 10;
   private $numOfPages;
 
-  public function loadParams($currentPage) {
+  public function loadParams($currentPage, $searchUsername, $filterRole) {
     $this->currentPage = $currentPage;
+    $this->searchUsername = ($searchUsername == '')? '%' : $searchUsername;
+    $this->filterRole = ($filterRole == '')? '%' : $filterRole;
   }
   private function autoCorrect() {
+    if ($this->numOfPages < 1) {
+      $this->numOfPages = 1;
+    }
     if ($this->currentPage < 1) {
 			$this->currentPage = 1;
 		}
@@ -21,7 +28,7 @@ class FetchUserModel extends Model {
     $usns = [];
     $roles = [];
 		// get all users
-		$query = 'SELECT id, username, role FROM users';
+		$query = "SELECT id, username, role FROM users WHERE username LIKE '%".$this->searchUsername."%' AND role LIKE '%".$this->filterRole."%';";
 		if ($statement = $this->dbInstance->prepare($query)) {
 		}
 		else {
@@ -44,13 +51,13 @@ class FetchUserModel extends Model {
 				  array_push($ids, $id);
           array_push($usns, $username);
           array_push($roles, $role);
-          $this->result['data'] = [$ids, $usns, $roles];
-          $this->result['message'] = 'OK';
-          $this->result['numOfPages'] = $this->numOfPages;
-          $this->result['currentPage'] = $this->currentPage;
         }
         $count++;
 			}
+      $this->result['data'] = [$ids, $usns, $roles];
+      $this->result['message'] = 'OK';
+      $this->result['numOfPages'] = $this->numOfPages;
+      $this->result['currentPage'] = $this->currentPage;
 		}
 		else {
 			$this->result['message'] = 'Something went wrong. Please try again later.';

@@ -43,12 +43,34 @@ class AdminController extends Controller
       case 'viewAllUsers':
         // check params
         $this->data['currentPage'] = 1;
+        $this->data['searchUsername'] = '';
+        $this->data['filterRole'] = '';
+        $bad = false;
         if (isset($_GET['page'])) {
           if (is_numeric($_GET['page'])) {
             $this->data['currentPage'] = (int)($_GET['page']);
-          } else $this->redirect('admin/viewAllUsers?page=1');
-        } else $this->redirect('admin/viewAllUsers?page=1');
-
+          } else {
+            $bad = true;
+          }
+        } else {
+          $bad = true;
+        }
+        if (isset($_GET['searchUsername'])) {
+          $this->data['searchUsername'] = $_GET['searchUsername'];
+        }
+        else {
+          $bad = true;
+        }
+        if (isset($_GET['filterRole'])) {
+          $this->data['filterRole'] = $_GET['filterRole'];
+        }
+        else {
+          $bad = true;
+        }
+        if ($bad) {
+          $final = 'admin/viewAllUsers?page='.$this->data['currentPage'].'&searchUsername='.$this->data['searchUsername'].'&filterRole='.$this->data['filterRole'];
+          $this->redirect($final);
+        }
         $this->view = 'admin';
         header("HTTP/1.0 200");
         $this->head['title'] = 'Admin';
@@ -56,7 +78,7 @@ class AdminController extends Controller
         // exec query
         require("../core/models/FetchUserModel.php");
         $um = new FetchUserModel();
-        $um->loadParams($this->data['currentPage']);
+        $um->loadParams($this->data['currentPage'], $this->data['searchUsername'], $this->data['filterRole']);
         $um->executeQuery();
         $result = $um->getResult();
         if ($result['message'] == 'OK') {
