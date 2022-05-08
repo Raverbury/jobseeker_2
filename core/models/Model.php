@@ -31,7 +31,7 @@ abstract class Model {
 		$this->dbInstance->close();
 	}
 
-	abstract function executeQuery($params);
+	abstract function executeQuery();
 
 	public function getResult() {
 		return $this->result;

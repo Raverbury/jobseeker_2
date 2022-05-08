@@ -1,7 +1,9 @@
 <?php
 
-class LoginController extends Controller {
-  public function process($params) {
+class LoginController extends Controller
+{
+	public function process($params)
+	{
 		$action = array_shift($params);
 		switch ($action) {
 			case '':
@@ -9,17 +11,22 @@ class LoginController extends Controller {
 				if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					require("../core/models/LoginModel.php");
 					$loginModel = new LoginModel();
-					$loginModel->executeQuery($_POST);
+          $loginModel->loadParams($_POST['username'], $_POST['password']);
+					$loginModel->executeQuery();
 					$result = $loginModel->getResult();
 					if ($result['message'] == 'OK') {
 						$_SESSION['username'] = $result['username'];
 						$_SESSION['id'] = $result['id'];
 						$_SESSION['role'] = $result['role'];
 						$_SESSION['isLoggedIn'] = true;
+            $_SESSION['message'] = 'Logged in successfully';
+            $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'success';
 						$this->redirect('home');
-					}
-					else {
-						$this->data['message'] = $result['message'];
+					} else {
+						$_SESSION['message'] = $result['message'];
+            $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'danger';
 						$this->view = 'login';
 					}
 				}
@@ -27,8 +34,7 @@ class LoginController extends Controller {
 				else {
 					if ($_SESSION['isLoggedIn']) {
 						$this->redirect('home');
-					}
-					else {
+					} else {
 						$this->view = 'login';
 					}
 				}
@@ -37,5 +43,5 @@ class LoginController extends Controller {
 				$this->redirect('error');
 				break;
 		}
-  }
+	}
 }

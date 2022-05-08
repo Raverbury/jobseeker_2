@@ -11,6 +11,9 @@ class LogoutController extends Controller {
 					$_SESSION['id'] = -1;
 					$_SESSION['role'] = 'guest';
 					$_SESSION['isLoggedIn'] = false;
+          $_SESSION['message'] = 'Logged out';
+          $_SESSION['showMessage'] = true;
+          $_SESSION['messageType'] = 'success';
 				}
 				$this->redirect('home');
 				break;
