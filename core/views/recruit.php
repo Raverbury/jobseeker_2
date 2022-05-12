@@ -13,9 +13,6 @@
             <label class="control-label col-sm-2">Salary offered</label></br>
             <input type="text" class="form-control" placeholder="Salary"></br>
 
-            <label class="control-label col-sm-2">Benefits offered</label></br>
-            <input type="text" class="form-control" placeholder="Benefits"></br>
-
             <label>Describe the job in detail</label>
             <div class="form-group">
                 <textarea id="editor"></textarea>
