@@ -59,7 +59,7 @@ class RegisterModel extends Model {
 		// adding new user
 		$query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?);';
 		if ($statement = $this->dbInstance->prepare($query)) {
-      $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+      		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
 			$statement->bind_param('sss', $this->username, $this->password, $this->role);
 		}
 		else {
