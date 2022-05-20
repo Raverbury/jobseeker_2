@@ -14,16 +14,18 @@ class RecruitController extends Controller
                 break;
             case 'all':
                 $this->view = 'recruitViewAll';
-                $recruitModel->getAllQuery($_SESSION['id']);
+                $recruitModel->getAllQuery('1'); // param = SESSION[id]
                 $this->result = $recruitModel->getResult();
+                //print_r($this->result);
                 // map result to view
                 break;
             case 'create':
                 $this->view = 'recruitCreate';
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $recruitModel->loadParams($_SESSION['id'], $_POST['companyname'], $_POST['title'], $_POST['expyear'], $_POST['salary'], $_POST['benefits'], $_POST['jobdes']);
+                    $recruitModel->loadParams($_SESSION['id'], $_POST['companyname'], $_POST['title'], $_POST['expyear'], $_POST['salary'], $_POST['jobdes']);
                     $recruitModel->executeQuery();
-                    //$this->redirect('recruit/all');
+                    $this->redirect('recruit/all');
+                    //print_r($_POST);
                 } else {
                     $this->view = 'recruitCreate';
                 }

@@ -6,18 +6,16 @@ class RecruitModel extends Model
     private $title;
     private $expyear;
     private $salary;
-    private $benefits;
     private $jobdes;
     private $userId;
-    public function loadParams($userId, $companyname, $title, $expyear, $salary, $benefits, $jobdes)
+    public function loadParams($userId, $companyname, $title, $expyear, $salary, $jobdes)
     {
         $this->userId = $userId;
         $this->companyname = $companyname;
         $this->title = $title;
         $this->expyear = $expyear;
         $this->salary = $salary;
-        $this->benefits = $benefits;
-        $this->jobdes = $jobdes;
+        $this->jobdes = htmlspecialchars($jobdes);
     }
     private function validate()
     {
@@ -33,10 +31,6 @@ class RecruitModel extends Model
             $this->salary = "Not disclosed";
             return false;
         }
-        if ($this->benefits == '') {
-            $this->benefits = "Not disclosed";
-            return false;
-        }
         if ($this->jobdes == '') {
             $this->result['message'] = 'Job description cannot be empty.';
             return false;
@@ -47,9 +41,9 @@ class RecruitModel extends Model
     {
         $query = '
         INSERT INTO jobposts 
-        (userId, companyname, title, expyear, salary, benefits, jobdes) 
+        (userId, companyname, title, expyear, salary, jobdes) 
         VALUES 
-        (' . $this->userId . ',' . $this->companyname . ',' . $this->title . ', ' . $this->expyear . ',' . $this->salary . ',' . $this->benefits . ',' . $this->jobdes . ');';
+        ("' . $this->userId . '","' . $this->companyname . '","' . $this->title . '","' . $this->expyear . '","' . $this->salary .  '","' . $this->jobdes . '");';
         $statement = $this->dbInstance->prepare($query);
         if ($statement == false) {
             echo 'Cannot prepare query: recruitModel/54';
@@ -76,7 +70,7 @@ class RecruitModel extends Model
         $statement = $this->dbInstance->prepare($query);
         if ($statement->execute()) {
             $statement->store_result();
-            $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $benefit, $jobdes);
+            $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes);
             while ($statement->fetch()) {
                 array_push($companynames, $companyname);
                 array_push($titles, $title);
@@ -99,7 +93,6 @@ class RecruitModel extends Model
         $title = null;
         $expyear = null;
         $salary = null;
-        $benefit = null;
         $jobdes = null;
         $userId = null;
         $query = '
@@ -110,7 +103,7 @@ class RecruitModel extends Model
         $statement = $this->dbInstance->prepare($query);
         if ($statement->execute()) {
             $statement->store_result();
-            $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $benefit, $jobdes);
+            $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes);
             if ($statement->fetch()) {
                 $this->result['data'] = array(
                     'postId' => $postId,
@@ -118,7 +111,6 @@ class RecruitModel extends Model
                     'title' => $title,
                     'expyear' => $expyear,
                     'salary' => $salary,
-                    'benefit' => $benefit,
                     'jobdes' => $jobdes,
                     'userId' => $userId
                 );
