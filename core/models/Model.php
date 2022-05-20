@@ -5,18 +5,21 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'jobseeker');
+define('DB_NAME', 'test');
 
-abstract class Model {
+abstract class Model
+{
 	protected $dbInstance;
 	protected $result = array('message' => '');
 
-	function __construct() {
+	function __construct()
+	{
 		$this->dbInstance = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 		$this->autoGenTable();
 	}
 
-	private function autoGenTable() {
+	private function autoGenTable()
+	{
 		$sql = '
 		CREATE TABLE IF NOT EXISTS users (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -27,13 +30,15 @@ abstract class Model {
 		$this->dbInstance->query($sql);
 	}
 
-	function __destruct() {
+	function __destruct()
+	{
 		$this->dbInstance->close();
 	}
 
 	abstract function executeQuery();
 
-	public function getResult() {
+	public function getResult()
+	{
 		return $this->result;
 	}
 }
