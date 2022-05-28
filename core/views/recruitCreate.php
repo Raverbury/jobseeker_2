@@ -26,10 +26,10 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form class="form-horizontal">
-        <button onclick="transfer()">asdsad</button>
+
 </div>
 <script>
-    function transfer(){
+    function transfer() {
         document.getElementById("jobdes").value = tinymce.get('editor').getContent();
         return true;
     }

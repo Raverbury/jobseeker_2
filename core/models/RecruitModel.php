@@ -88,7 +88,6 @@ class RecruitModel extends Model
     }
     public function getIdQuery($postId)
     {
-        $postId = null;
         $companyname = null;
         $title = null;
         $expyear = null;
@@ -107,6 +106,7 @@ class RecruitModel extends Model
             if ($statement->fetch()) {
                 $this->result['data'] = array(
                     'postId' => $postId,
+                    'userId' => $userId,
                     'companyname' => $companyname,
                     'title' => $title,
                     'expyear' => $expyear,
@@ -114,6 +114,7 @@ class RecruitModel extends Model
                     'jobdes' => $jobdes,
                     'userId' => $userId
                 );
+                $this->result['message'] = 'OK';
             }
         }
     }

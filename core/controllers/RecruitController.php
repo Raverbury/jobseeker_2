@@ -32,13 +32,13 @@ class RecruitController extends Controller
                 break;
             case 'getId':
                 if ($params[0]) { // queried id
+                    //print_r($params[0]);
                     $recruitModel->getIdQuery($params[0]);
                     $this->result = $recruitModel->getResult();
-                    $this->view = 'jobpostsingle';
+                    $this->view = 'recruitView';
                 } else {
-                    //$this->redirect('error');
+                    $this->redirect('error');
                 }
-                $this->view = 'recruitFormShow';
 
                 break;
             default:
