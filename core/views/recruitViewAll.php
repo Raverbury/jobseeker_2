@@ -5,7 +5,7 @@
         $data = $this->result['data'];
         for ($i = 0; $i < $records; $i++) {
             echo '
-            <a href="/recruit/getId' . $data[0][$i] . '">
+            <a href="/recruit/getId/' . $data[0][$i] . '">
             <h1>' . $data[2][$i] . '</h1>
             <h2>Title: ' . $data[3][$i] . '</h2>
             <h2>Required ' . $data[4][$i] . ' year(s) of experience</h2>
@@ -14,5 +14,4 @@
         }
         ?>
         <a href="/recruit/create" class="btn btn-primary">Create Post</a>
-        <a href="/recruit/1" class="btn btn-primary" action="getId">Move to post 1</a>
 </div>
