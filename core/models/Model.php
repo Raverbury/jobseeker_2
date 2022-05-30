@@ -12,14 +12,21 @@ abstract class Model
 	protected $dbInstance;
 	protected $result = array('message' => '');
 
-	function __construct()
-	{
-		$this->dbInstance = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+	function __construct() {
+		$this->dbInstance = $this->getDBInstance();
 		$this->autoGenTable();
 	}
 
-	private function autoGenTable()
-	{
+  private function getDBInstance() {
+    $sql = '
+    CREATE DATABASE IF NOT EXISTS '.DB_NAME.'
+    ;';
+    $instance = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $instance->query($sql);
+    return new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+  }
+
+	private function autoGenTable() {
 		$sql = '
 		CREATE TABLE IF NOT EXISTS users (
 			id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
