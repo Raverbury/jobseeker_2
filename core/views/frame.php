@@ -4,12 +4,20 @@
 <head>
 	<base href="/ass.localhost" />
 	<meta charset="UTF-8" />
-	<title><?= $title ?></title>
-	<meta name="description" content="<?= $description ?>" />
+	<title><?= 'Jobseeker' ?></title>
+	<meta name="description" content="<?= 'A CV matching web app' ?>" />
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link ref="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.tiny.cloud/1/g71eys72jwsqlq94poocl0kmxrk6aukoj5cwnllluhsgyat9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+	<script>
+		tinymce.init({
+			selector: 'textarea#editor',
+			menubar: false
+		});
+	</script>
 </head>
 
 <body>
@@ -41,6 +49,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link text-light" href="/info">Info</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="/recruit">Recruit</a>
 					</li>
 					<?php
 					if ($_SESSION['isLoggedIn']) {

@@ -5,9 +5,10 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'jobseeker');
+define('DB_NAME', 'test');
 
-abstract class Model {
+abstract class Model
+{
 	protected $dbInstance;
 	protected $result = array('message' => '');
 
@@ -36,13 +37,15 @@ abstract class Model {
 		$this->dbInstance->query($sql);
 	}
 
-	function __destruct() {
+	function __destruct()
+	{
 		$this->dbInstance->close();
 	}
 
 	abstract function executeQuery();
 
-	public function getResult() {
+	public function getResult()
+	{
 		return $this->result;
 	}
 }
