@@ -6,8 +6,7 @@ class AdminController extends Controller
 {
   public function process($params)
   {
-    if ($_SESSION['isLoggedIn'] && $_SESSION['role'] == 'admin') {
-    } else {
+    if (!($_SESSION['isLoggedIn'] && $_SESSION['role'] == 'admin')) {
       $_SESSION['message'] = 'Requires administrator privileges.';
       $_SESSION['showMessage'] = true;
       $_SESSION['messageType'] = 'danger';
