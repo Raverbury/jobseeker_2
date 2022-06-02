@@ -1,6 +1,6 @@
 <?php
 
-class viewCVModel extends Model
+class ViewCVModel extends Model
 {
   private $ID;
 
