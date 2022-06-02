@@ -1,6 +1,6 @@
 <?php
 
-class cvCreateModel extends Model
+class CreateCVModel extends Model
 {
   private $cvID;
   private $UserID;

@@ -1,6 +1,6 @@
 <?php
 
-class cvUpdateModel extends Model
+class UpdateCVModel extends Model
 {
   private $cvID;
   private $UserID;

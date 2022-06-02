@@ -6,7 +6,7 @@ echo '<table class = "table">
   <th scope="col">Edit CV</th>
   <th scope="col">View CV</th>
   <th scope="col">Name</th>
-  <th scope="col">Status</th>
+  <th scope="col">Owner</th>
 </tr>
 </thead>
 </table>';
@@ -17,8 +17,8 @@ foreach ($IDs as $value) {
   <tr>
     <th width = "26.4%" scope="row"><a href="cv/edit/' . $IDs[$a] . '"><u>edit</u></a></th>
     <th width = "27%" scope="row"><a href="cv/view/' . $IDs[$a] . '"><u>View</u></td>
-    <th width = "24%"scope="row"><a>' . $names[$a] . '</a></td>
-    <th>Finish</td>
+    <th width = "24%"scope="row">' . $names[$a] . '</td>
+    <th>'. $owners[$a] .'</td>
   </tr>
 </tbody>
 </table>';

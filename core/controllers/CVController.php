@@ -32,8 +32,8 @@ class CVController extends Controller
         if (count($params) == 0) {
           $this->redirect('cv/all');
         } else {
-          require('../core/models/viewCVModel.php');
-          $temp = new viewCVModel();
+          require('../core/models/ViewCVModel.php');
+          $temp = new ViewCVModel();
           $temp->loadParams($params[0]);
           $temp->executeQuery();
           $result = $temp->getResult();
@@ -56,8 +56,8 @@ class CVController extends Controller
           $this->redirect('cv/all');
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          require('../core/models/cvUpdateModel.php');
-          $temp = new cvUpdateModel();
+          require('../core/models/UpdateCVModel.php');
+          $temp = new UpdateCVModel();
           $temp->loadParams($_POST, $params[0]);
           $temp->executeQuery();
           $result = $temp->getResult();
@@ -73,8 +73,8 @@ class CVController extends Controller
             $this->redirect('cv/all');
           }
         } else {
-          require('../core/models/viewCVModel.php');
-          $temp = new viewCVModel();
+          require('../core/models/ViewCVModel.php');
+          $temp = new ViewCVModel();
           $temp->loadParams($params[0]);
           $temp->executeQuery();
           $result = $temp->getResult();
@@ -106,8 +106,8 @@ class CVController extends Controller
           $this->redirect('cv/all');
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          require('../core/models/cvCreateModel.php');
-          $temp = new cvCreateModel();
+          require('../core/models/CreateCVModel.php');
+          $temp = new CreateCVModel();
           $temp->loadParams($_POST);
           $temp->executeQuery();
           $result = $temp->getResult();
