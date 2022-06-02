@@ -11,13 +11,14 @@
 	<link ref="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.tiny.cloud/1/g71eys72jwsqlq94poocl0kmxrk6aukoj5cwnllluhsgyat9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
+	
 	<script>
 		tinymce.init({
 			selector: 'textarea#editor',
 			menubar: false
 		});
 	</script>
+	<script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script><script  src="./Template/script.js"></script>
 </head>
 
 <body>
@@ -53,6 +54,9 @@
 					<li class="nav-item">
 						<a class="nav-link text-light" href="/recruit">Recruit</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="/cv">CV</a>
+					</li>
 					<?php
 					if ($_SESSION['isLoggedIn']) {
 						echo '<li class="nav-item">
@@ -70,16 +74,16 @@
 		</nav>
 	</header>
 
-  <div class="container mt-3" id="messageBox">
+  
     <?php
 	    if (isset($_SESSION['showMessage'])) {
         if ($_SESSION['showMessage']) {
-		      echo '<div class="alert alert-'.$_SESSION['messageType'].'">' . $_SESSION['message'] . '</div>';
+			echo '<div class="container mt-3" id="messageBox"><div class="alert alert-'.$_SESSION['messageType'].'">' . $_SESSION['message'] . '</div></div>';
           $_SESSION['showMessage'] = false;
         }
 	    }
 	  ?>
-  </div>
+  
 
 	<article class="container mt-2 mb-4">
 		<?php $this->controller->renderView(); ?>

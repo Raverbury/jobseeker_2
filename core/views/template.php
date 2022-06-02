@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Template</title>
-  <meta name="viewport" content="width=device-width"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <div class="resume-wrapper">
 	<section class="profile section-padding">
 		<div class="container">
 			<div class="picture-resume-wrapper">
         <div class="picture-resume">
       <label>
-      	<img src="./IMAGE.png"/>
+      	<img src="./Template/IMAGE.png"/>
    	</label>
 	<svg version="1.1" viewBox="0 0 350 350">
   	
@@ -35,7 +24,7 @@
  </div>
 
       <div class="name-wrapper">
-        <h1><input style = "height:50px;font-size:14pt;" type="text" placeholder="THIEN HUYNH"></h1><!-- YOUR NAME AND LAST NAME  -->
+        <h1><input style = "height:50px;font-size:14pt;" type="text" placeholder="THIEN HUYNH"></h1> <!-- YOUR NAME AND LAST NAME  -->
       </div>
       <div class="clearfix"></div>
       <div class="contact-info clearfix">
@@ -59,7 +48,7 @@
       	</ul>
 	</div>
       <div class="contact-presentation"> <!-- YOUR PRESENTATION RESUME  -->
-      	<textarea border = "none" border-color = "transparent" name="paragraph_text" cols="50" rows="10"></textarea>
+      	<textarea name="paragraph_text" cols="50" rows="10"></textarea>
       </div>
       
 		</div>
@@ -139,7 +128,4 @@
   <div class="clearfix"></div>
 </div>
 <!-- partial -->
-  <script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script><script  src="./script.js"></script>
-
-</body>
-</html>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script><script  src="./Template/script.js"></script>
