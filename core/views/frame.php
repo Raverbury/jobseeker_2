@@ -34,8 +34,11 @@
 
   <footer>
     <div class="container-fluid bg-dark text-light mt-1 p-2" id="footer">
-      <?php require('credits.php'); ?>
-      <?php require('sitemap.php'); ?>
+      <div class="ms-5">
+        <h2 class="mt-1">JobSeeker&trade; 2022</h2>
+        <?php require('credits.php'); ?>
+        <?php require('sitemap.php'); ?>
+      </div>
     </div>
   </footer>
 
