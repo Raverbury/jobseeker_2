@@ -79,7 +79,7 @@ class CVController extends Controller
           $result = $temp->getResult();
           if ($result['message'] == 'OK') {
             if ($_SESSION['id'] != $result['data'][0]['UserID']) {
-              $_SESSION['message'] = 'You do not have permission to edit this CV.';
+              $_SESSION['message'] = 'You do not have permission to edit this CV (must be the owner).';
               $_SESSION['showMessage'] = true;
               $_SESSION['messageType'] = 'danger';
               $this->redirect('cv/all');
