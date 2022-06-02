@@ -22,10 +22,11 @@ class CVController extends Controller
         $result = $temp->getResult();
         $this->data['names'] = $result['data'][0];
         $this->data['IDs'] = $result['data'][1];
+        $this->data['owners'] = $result['data'][2];
         header("HTTP/1.0 200");
         $this->head['title'] = 'View all CVs';
         $this->head['description'] = 'View all CVs';
-        $this->view = 'allCVs';
+        $this->view = 'viewAllCVs';
         break;
       case 'view':
         if (count($params) == 0) {
