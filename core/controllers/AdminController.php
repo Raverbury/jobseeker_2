@@ -26,7 +26,7 @@ class AdminController extends Controller
           $registerModel->executeQuery();
           $result = $registerModel->getResult();
           if ($result['message'] == 'OK') {
-            $_SESSION['message'] = 'User has been registered';
+            $_SESSION['message'] = 'User has been registered.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('admin');

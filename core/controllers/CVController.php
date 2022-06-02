@@ -6,7 +6,7 @@ class CVController extends Controller
   {
     if ($_SESSION['isLoggedIn'] == false) {
       $_SESSION['showMessage'] = true;
-      $_SESSION['message'] = 'You are not logged in';
+      $_SESSION['message'] = 'Must be logged in.';
       $_SESSION['messageType'] = 'danger';
       $this->redirect('home');
     }
@@ -100,7 +100,7 @@ class CVController extends Controller
         break;
       case 'create': // needs to be logged in as a candidate
         if ($_SESSION['role'] != 'candidate') {
-          $_SESSION['message'] = 'You must be a candidate.';
+          $_SESSION['message'] = 'Must be logged in as a candidate.';
           $_SESSION['showMessage'] = true;
           $_SESSION['messageType'] = 'danger';
           $this->redirect('cv/all');

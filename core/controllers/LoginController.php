@@ -7,7 +7,7 @@ class LoginController extends Controller
     if ($_SESSION['isLoggedIn']) {
       $_SESSION['showMessage'] = true;
       $_SESSION['messageType'] = 'danger';
-      $_SESSION['message'] = 'You are already logged in';
+      $_SESSION['message'] = 'You are already logged in.';
       $this->redirect('home');
     }
     header("HTTP/1.0 200");
@@ -28,7 +28,7 @@ class LoginController extends Controller
             $_SESSION['id'] = $result['id'];
             $_SESSION['role'] = $result['role'];
             $_SESSION['isLoggedIn'] = true;
-            $_SESSION['message'] = 'Logged in successfully';
+            $_SESSION['message'] = 'Logged in successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('home');
