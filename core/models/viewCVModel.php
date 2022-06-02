@@ -22,6 +22,10 @@ class viewCVModel extends Model
     if ($statement->execute()) {
       $statement->store_result();
       $statement->bind_result($cvID, $UserID, $Name, $Phone, $Mail, $Web, $Place, $About, $company1, $period1, $role1, $companydes1, $company2, $period2, $role2, $companydes2, $company3, $period3, $role3,  $companydes3, $skill1, $skill2, $skill3, $skill4, $skill5, $skill6, $slide1, $slide2, $slide3, $slide4, $slide5, $slide6, $hobbies);
+      if ($statement->num_rows < 1) {
+        $this->result['message'] = 'Cannot find a CV with such ID.';
+        return;
+      }
       while ($statement->fetch()) {
         $arr['cvID'] = $cvID;
         $arr['UserID'] = $UserID;
@@ -59,6 +63,7 @@ class viewCVModel extends Model
       }
       $this->result['data'] = [$arr];
       $this->result['message'] = 'OK';
+      return;
     } else {
       $this->result['message'] = 'Something went wrong. Please try again later.';
       return;

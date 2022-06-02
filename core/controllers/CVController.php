@@ -22,6 +22,9 @@ class CVController extends Controller
         $result = $temp->getResult();
         $this->data['names'] = $result['data'][0];
         $this->data['IDs'] = $result['data'][1];
+        header("HTTP/1.0 200");
+        $this->head['title'] = 'View all CVs';
+        $this->head['description'] = 'View all CVs';
         $this->view = 'allCVs';
         break;
       case 'view':
@@ -34,7 +37,17 @@ class CVController extends Controller
           $temp->executeQuery();
           $result = $temp->getResult();
           $this->data['cvData'] = $result['data'][0];
-          $this->view = 'viewCV';
+          if ($result['message'] == 'OK') {
+            $this->view = 'viewCV';
+            header("HTTP/1.0 200");
+            $this->head['title'] = 'View a CV';
+            $this->head['description'] = 'View a single CV';
+          } else {
+            $_SESSION['message'] = $result['message'];
+            $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'danger';
+            $this->redirect('cv/all');
+          }
         }
         break;
       case 'edit': // needs to be logged in as the owner of the cv
@@ -56,7 +69,7 @@ class CVController extends Controller
             $_SESSION['message'] = $result['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
-            $this->view = 'register';
+            $this->redirect('cv/all');
           }
         } else {
           require('../core/models/viewCVModel.php');
@@ -64,14 +77,24 @@ class CVController extends Controller
           $temp->loadParams($params[0]);
           $temp->executeQuery();
           $result = $temp->getResult();
-          if ($_SESSION['id'] != $result['data'][0]['UserID']) {
-            $_SESSION['message'] = 'You do not have permission to edit this CV.';
+          if ($result['message'] == 'OK') {
+            if ($_SESSION['id'] != $result['data'][0]['UserID']) {
+              $_SESSION['message'] = 'You do not have permission to edit this CV.';
+              $_SESSION['showMessage'] = true;
+              $_SESSION['messageType'] = 'danger';
+              $this->redirect('cv/all');
+            }
+            $this->data['cvData'] = $result['data'][0];
+            $this->view = 'editCV';
+            header("HTTP/1.0 200");
+            $this->head['title'] = 'Edit a CV';
+            $this->head['description'] = 'Edit your CV';
+          } else {
+            $_SESSION['message'] = $result['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/all');
           }
-          $this->data['cvData'] = $result['data'][0];
-          $this->view = 'editCV';
         }
         break;
       case 'create': // needs to be logged in as a candidate
@@ -96,10 +119,13 @@ class CVController extends Controller
             $_SESSION['message'] = $result['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
-            $this->view = 'register';
+            $this->redirect('cv/create');
           }
         } else {
           $this->view = 'createCV';
+          header("HTTP/1.0 200");
+          $this->head['title'] = 'Create a CV';
+          $this->head['description'] = 'Create a new CV';
         }
         break;
       default:
