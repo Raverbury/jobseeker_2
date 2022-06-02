@@ -1,30 +1,27 @@
-<?php
-$a = 0;
-echo '<table class = "table">
-<thead>
-<tr>
-  <th scope="col">Edit CV</th>
-  <th scope="col">View CV</th>
-  <th scope="col">Name</th>
-  <th scope="col">Owner</th>
-</tr>
-</thead>
-</table>';
-foreach ($IDs as $value) {
-  echo '<table class = "table">
-
-<tbody>
-  <tr>
-    <th width = "26.4%" scope="row"><a href="cv/edit/' . $IDs[$a] . '"><u>edit</u></a></th>
-    <th width = "27%" scope="row"><a href="cv/view/' . $IDs[$a] . '"><u>View</u></td>
-    <th width = "24%"scope="row">' . $names[$a] . '</td>
-    <th>'. $owners[$a] .'</td>
-  </tr>
-</tbody>
-</table>';
-  $a = $a + 1;
-}
-// echo '<div>'.$names[0].'</div>';
-// echo '<div>'.$IDs[0].'</div>';
-// echo '<a href="cv/view/'.$IDs[0].'"></a>';
-echo '<a class="btn btn-primary m-1" href="cv/create">Create your CV</a>';
+<div class="container">
+  <h1 class="py-2">View all CVs</h1>
+  <p>This page lists all CVs.</p>
+  <table class="table table-responsive-md table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">CV</th>
+        <th scope="col">Owner</th>
+        <th scope="col">View</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      for ($i = 0; $i < count($IDs); $i++) {
+        echo '<tr>
+          <td>' . $names[$i] . '</td>
+          <td>' . $owners[$i] . '</td>
+          <td><a href="cv/view/' . $IDs[$i] . '"><u>View</u></a></td>
+          <td><a href="cv/edit/' . $IDs[$i] . '"><u>Edit</u></a></td>
+        </tr>';
+      }
+      ?>
+    </tbody>
+  </table>
+  <a class="btn btn-primary m-1" href="cv/create">Create your CV</a>
+</div>
