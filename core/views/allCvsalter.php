@@ -3,7 +3,6 @@ $a = 0;
 echo '<table class = "table">
 <thead>
 <tr>
-  <th scope="col">Edit CV</th>
   <th scope="col">View CV</th>
   <th scope="col">Name</th>
   <th scope="col">Status</th>
@@ -16,9 +15,8 @@ echo '<table class = "table">
 
 <tbody>
   <tr>
-    <th width = "26.4%" scope="row"><a href="cv/edit/'.$IDs[$a].'"><u>edit</u></a></th>
-    <th width = "27%" scope="row"><a href="cv/view/'.$IDs[$a].'"><u>View</u></td>
-    <th width = "24%"scope="row"><a>'.$names[$a].'</a></td>
+    <th width = "38%" scope="row"><a href="cv/view/'.$IDs[$a].'"><u>View</u></td>
+    <th width = "31%"scope="row"><a>'.$names[$a].'</a></td>
     <th>Finish</td>
   </tr>
 </tbody>

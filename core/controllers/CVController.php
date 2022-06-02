@@ -8,13 +8,31 @@ class CVController extends Controller {
 				$this->redirect('cv/all');
 				break;
 			case 'all':
-				require('../core/models/FetchCVModel.php');
-				$temp = new FetchCVModel();
-				$temp->executeQuery();
-				$result = $temp->getResult();
-				$this->data['names'] = $result['data'][0];
-				$this->data['IDs'] = $result['data'][1];
-				$this->view = 'allCVs';
+				if ($_SERVER['REQUEST_METHOD'] == 'POST')
+				{
+					require('../core/models/FetchCVModel.php');
+					$temp = new FetchCVModel();
+					$temp->executeQuery();
+					$result = $temp->getResult();
+					$this->data['names'] = $result['data'][0];
+					$this->data['IDs'] = $result['data'][1];
+					$this->view = 'allCVs';
+				}
+				else
+				{
+					require('../core/models/FetchCVModel.php');
+					$temp = new FetchCVModel();
+					$temp->executeQuery();
+					$result = $temp->getResult();
+					$this->data['names'] = $result['data'][0];
+					$this->data['IDs'] = $result['data'][1];
+					if ($_SESSION['isLoggedIn'] == false)
+					{
+							$this->view = 'allCvsalter';
+					}
+					else
+					{$this->view = 'allCVs';}
+				}
 				break;
 			case 'view':
 				if (count($params) == 0)
@@ -23,6 +41,7 @@ class CVController extends Controller {
 				}
 				else
 				{
+					
 					require('../core/models/viewCVModel.php');
 					$temp = new viewCVModel();
 					$temp->loadParams($params[0]);
@@ -50,7 +69,7 @@ class CVController extends Controller {
 						$_SESSION['message'] = 'Sucessful!!!';
 						$_SESSION['showMessage'] = true;
 						$_SESSION['messageType'] = 'success';
-						$this->redirect('home');
+						$this->redirect('cv/all');
 					} else {
 						$_SESSION['message'] = $result['message'];
 						$_SESSION['showMessage'] = true;
@@ -82,7 +101,7 @@ class CVController extends Controller {
 						$_SESSION['message'] = 'Sucessful!!!';
 						$_SESSION['showMessage'] = true;
 						$_SESSION['messageType'] = 'success';
-						$this->redirect('home');
+						$this->redirect('cv/all');
 					} else {
 						$_SESSION['message'] = $result['message'];
 						$_SESSION['showMessage'] = true;
