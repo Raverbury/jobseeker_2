@@ -54,7 +54,40 @@ class RecruitModel extends Model
       return;
     }
   }
-  public function getAllQuery($usrId)
+  public function getAllQuery()
+  {
+    $postIds = [];
+    $companynames = [];
+    $titles = [];
+    $expyears = [];
+    $salarys = [];
+    $userIds = [];
+    $owners = [];
+    $query = '
+        SELECT jobposts.*, users.username
+        FROM jobposts LEFT JOIN users ON jobposts.userId = users.id
+        ';
+    $statement = $this->dbInstance->prepare($query);
+    if ($statement->execute()) {
+      $statement->store_result();
+      $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes, $owner);
+      while ($statement->fetch()) {
+        array_push($companynames, $companyname);
+        array_push($titles, $title);
+        array_push($expyears, $expyear);
+        array_push($salarys, $salary);
+        array_push($userIds, $userIds);
+        array_push($postIds, $postId);
+        array_push($owners, $owner);
+      }
+      $this->result['data'] = [$postIds, $userIds, $companynames, $titles, $expyears, $salarys, $owners];
+      $this->result['message'] = 'OK';
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
+  }
+  public function getAllQueryFromUser($usrId)
   {
     $postIds = [];
     $companynames = [];
@@ -65,7 +98,7 @@ class RecruitModel extends Model
     $query = '
         SELECT *
         FROM jobposts
-        WHERE userId = ' . $usrId . '
+        WHERE userId = "' . $usrId . '"
         ';
     $statement = $this->dbInstance->prepare($query);
     if ($statement->execute()) {
@@ -86,7 +119,7 @@ class RecruitModel extends Model
       return;
     }
   }
-  public function getIdQuery($postId)
+  public function getJDWithId($postId)
   {
     $companyname = null;
     $title = null;
