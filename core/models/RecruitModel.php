@@ -44,13 +44,17 @@ class RecruitModel extends Model
         (userId, companyname, title, expyear, salary, jobdes) 
         VALUES 
         ("' . $this->userId . '","' . $this->companyname . '","' . $this->title . '","' . $this->expyear . '","' . $this->salary .  '","' . $this->jobdes . '");';
-    $statement = $this->dbInstance->prepare($query);
-    if ($statement == false) {
-      echo 'Cannot prepare query: recruitModel/54';
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
       return;
     }
-    if ($statement->execute() == false) {
-      echo 'Cannot execute query: recruitModel/58';
+    if ($statement->execute()) {
+      $this->result['message'] = 'OK';
+      return;
+    }
+    else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
       return;
     }
   }
@@ -67,7 +71,11 @@ class RecruitModel extends Model
         SELECT jobposts.*, users.username
         FROM jobposts LEFT JOIN users ON jobposts.userId = users.id
         ';
-    $statement = $this->dbInstance->prepare($query);
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
     if ($statement->execute()) {
       $statement->store_result();
       $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes, $owner);
@@ -100,7 +108,11 @@ class RecruitModel extends Model
         FROM jobposts
         WHERE userId = "' . $usrId . '"
         ';
-    $statement = $this->dbInstance->prepare($query);
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
     if ($statement->execute()) {
       $statement->store_result();
       $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes);
@@ -132,11 +144,19 @@ class RecruitModel extends Model
         FROM jobposts
         WHERE postId = ' . $postId . '
         ';
-    $statement = $this->dbInstance->prepare($query);
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
     if ($statement->execute()) {
       $statement->store_result();
       $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes);
-      if ($statement->fetch()) {
+      if ($statement->num_rows < 1) {
+        $this->result['message'] = 'Cannot find a CV with such ID.';
+        return;
+      }
+      while ($statement->fetch()) {
         $this->result['data'] = array(
           'postId' => $postId,
           'userId' => $userId,
@@ -149,6 +169,9 @@ class RecruitModel extends Model
         );
         $this->result['message'] = 'OK';
       }
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
     }
   }
 }
