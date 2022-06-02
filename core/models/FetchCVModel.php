@@ -29,8 +29,9 @@ class FetchCVModel extends Model
   {
     $IDs = [];
     $names = [];
+    $owners = [];
     // get all users
-    $query = "SELECT Name, cvID FROM templates";
+    $query = "SELECT Name, cvID, users.username FROM templates LEFT JOIN users ON templates.UserID = users.id";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {
       $this->result['message'] = 'Something went wrong. Please try again later.';
@@ -38,12 +39,13 @@ class FetchCVModel extends Model
     }
     if ($statement->execute()) {
       $statement->store_result();
-      $statement->bind_result($name, $id);
+      $statement->bind_result($name, $id, $owner);
       while ($statement->fetch()) {
         array_push($names, $name);
         array_push($IDs, $id);
+        array_push($owners, $owner);
       }
-      $this->result['data'] = [$names, $IDs];
+      $this->result['data'] = [$names, $IDs, $owners];
       $this->result['message'] = 'OK';
     } else {
       $this->result['message'] = 'Something went wrong. Please try again later.';
