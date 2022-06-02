@@ -4,6 +4,15 @@ class RegisterController extends Controller
 {
   public function process($params)
   {
+    if ($_SESSION['isLoggedIn']) {
+      $_SESSION['showMessage'] = true;
+      $_SESSION['messageType'] = 'danger';
+      $_SESSION['message'] = 'You are already logged in';
+      $this->redirect('home');
+    }
+    header("HTTP/1.0 200");
+    $this->head['title'] = 'Registration Page';
+    $this->head['description'] = 'Register a new account';
     $action = array_shift($params);
     switch ($action) {
       case '':
@@ -32,11 +41,7 @@ class RegisterController extends Controller
         }
         // without $_POST aka first time viewing the page
         else {
-          if ($_SESSION['isLoggedIn']) {
-            $this->redirect('home');
-          } else {
-            $this->view = 'register';
-          }
+          $this->view = 'register';
         }
         break;
       default:

@@ -4,6 +4,15 @@ class LoginController extends Controller
 {
   public function process($params)
   {
+    if ($_SESSION['isLoggedIn']) {
+      $_SESSION['showMessage'] = true;
+      $_SESSION['messageType'] = 'danger';
+      $_SESSION['message'] = 'You are already logged in';
+      $this->redirect('home');
+    }
+    header("HTTP/1.0 200");
+    $this->head['title'] = 'Login Page';
+    $this->head['description'] = 'Log in with your account';
     $action = array_shift($params);
     switch ($action) {
       case '':
@@ -32,11 +41,7 @@ class LoginController extends Controller
         }
         // without $_POST aka first time viewing the page
         else {
-          if ($_SESSION['isLoggedIn']) {
-            $this->redirect('home');
-          } else {
-            $this->view = 'login';
-          }
+          $this->view = 'login';
         }
         break;
       default:
