@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="./Template/style.css">
 <div>
   <div class="border resume-wrapper">
     <form name="cvForm" class="bg-light p-2" action="cv/create" method="post">
-      <link rel="stylesheet" href="./Template/style.css">
+      
 
       <section class="profile section-padding">
         <div class="container">
