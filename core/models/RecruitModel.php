@@ -153,7 +153,7 @@ class RecruitModel extends Model
       $statement->store_result();
       $statement->bind_result($postId, $userId, $companyname, $title, $expyear, $salary, $jobdes);
       if ($statement->num_rows < 1) {
-        $this->result['message'] = 'Cannot find a CV with such ID.';
+        $this->result['message'] = 'Cannot find a JD with such ID.';
         return;
       }
       while ($statement->fetch()) {
