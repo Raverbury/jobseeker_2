@@ -16,7 +16,7 @@
         echo '<tr>
           <td>' . $this->result['data'][2][$i] . '</td>
           <td>' . $this->result['data'][3][$i] . '</td>
-          <td>' . $this->result['data'][4][$i] . '</td>
+          <td>' . $this->result['data'][4][$i] . ' year(s)</td>
           <td><a href="recruit/view/' . $this->result['data'][0][$i] . '"><u>View</u></a></td>
         </tr>';
       }
