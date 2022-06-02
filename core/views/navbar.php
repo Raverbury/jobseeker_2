@@ -34,7 +34,7 @@
       <?php
       if ($_SESSION['isLoggedIn']) {
         echo '<li class="nav-item">
-	        		<a class="nav-link text-light">Logged in as ' . $_SESSION['username'] . ' (' . $_SESSION['role'] . '#' . $_SESSION['id'] . ')</a>
+	        		<a class="nav-link text-light" href="user/view/'.$_SESSION['id'].'">Logged in as ' . $_SESSION['username'] . ' (' . $_SESSION['role'] . '#' . $_SESSION['id'] . ')</a>
       			</li>';
         if ($_SESSION['role'] == 'admin') {
           echo '<li class="nav-item">
