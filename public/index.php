@@ -1,7 +1,8 @@
 <?php
 mb_internal_encoding("UTF-8");
 
-function autoloadFunction($class) {
+function autoloadFunction($class)
+{
   // Ends with a string "Controller"?
   if (preg_match('/Controller$/', $class))
     require("../core/controllers/" . $class . ".php");

@@ -9,19 +9,18 @@ echo '<table class = "table">
 </tr>
 </thead>
 </table>';
-foreach($IDs as $value)
-{
-echo '<table class = "table">
+foreach ($IDs as $value) {
+  echo '<table class = "table">
 
 <tbody>
   <tr>
-    <th width = "38%" scope="row"><a href="cv/view/'.$IDs[$a].'"><u>View</u></td>
-    <th width = "31%"scope="row"><a>'.$names[$a].'</a></td>
+    <th width = "38%" scope="row"><a href="cv/view/' . $IDs[$a] . '"><u>View</u></td>
+    <th width = "31%"scope="row"><a>' . $names[$a] . '</a></td>
     <th>Finish</td>
   </tr>
 </tbody>
 </table>';
-$a = $a + 1;
+  $a = $a + 1;
 }
 // echo '<div>'.$names[0].'</div>';
 // echo '<div>'.$IDs[0].'</div>';

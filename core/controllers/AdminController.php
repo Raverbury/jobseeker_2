@@ -57,18 +57,16 @@ class AdminController extends Controller
         }
         if (isset($_GET['searchUsername'])) {
           $this->data['searchUsername'] = $_GET['searchUsername'];
-        }
-        else {
+        } else {
           $bad = true;
         }
         if (isset($_GET['filterRole'])) {
           $this->data['filterRole'] = $_GET['filterRole'];
-        }
-        else {
+        } else {
           $bad = true;
         }
         if ($bad) {
-          $final = 'admin/viewAllUsers?page='.$this->data['currentPage'].'&searchUsername='.$this->data['searchUsername'].'&filterRole='.$this->data['filterRole'];
+          $final = 'admin/viewAllUsers?page=' . $this->data['currentPage'] . '&searchUsername=' . $this->data['searchUsername'] . '&filterRole=' . $this->data['filterRole'];
           $this->redirect($final);
         }
         $this->view = 'admin';

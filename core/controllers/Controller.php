@@ -5,24 +5,24 @@
 // redirecting
 abstract class Controller
 {
-	protected $data = array();
-	protected $view = NULL;
-	protected $head = array('title' => NULL, 'description' => NULL);
+  protected $data = array();
+  protected $view = NULL;
+  protected $head = array('title' => NULL, 'description' => NULL);
 
-	abstract function process($params);
+  abstract function process($params);
 
-	public function renderView()
-	{
-		if ($this->view) {
-			extract($this->data);
-			require("../core/views/" . $this->view . ".php");
-		}
-	}
+  public function renderView()
+  {
+    if ($this->view) {
+      extract($this->data);
+      require("../core/views/" . $this->view . ".php");
+    }
+  }
 
-	public function redirect($url)
-	{
-		header("Location: /$url");
-		header("Connection: close");
-		exit;
-	}
+  public function redirect($url)
+  {
+    header("Location: /$url");
+    header("Connection: close");
+    exit;
+  }
 }

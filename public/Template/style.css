@@ -1,8 +1,11 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -16,9 +19,11 @@ a {
   color: #66cc99;
   text-decoration: none;
 }
-.company{
-  width : 80%
+
+.company {
+  width: 80%
 }
+
 .bold {
   color: #4a4e51;
   font-weight: 400;
@@ -40,6 +45,7 @@ a {
   float: left;
   color: #9099a0;
 }
+
 @media (max-width: 850px) {
   .profile {
     width: 100%;
@@ -51,10 +57,12 @@ a {
   width: 60%;
   margin-top: 40px
 }
+
 .profile .name {
   font-size: 70%;
   top: 10%
 }
+
 .profile h1 {
   font-size: 2.5em;
   text-align: left;
@@ -64,17 +72,20 @@ a {
   line-height: 1em;
   padding-top: 40px;
 }
+
 @media (max-width: 1200px) {
   .profile h1 {
     padding-top: 20px;
   }
 }
+
 @media (max-width: 450px) {
   .profile h1 {
     font-size: 1.8em;
     padding-top: 20px;
   }
 }
+
 .profile li {
   margin-bottom: 10px;
 }
@@ -83,12 +94,14 @@ a {
   margin-top: 70px;
   font-weight: 300;
 }
+
 .profile .description {
   margin-top: 100px;
   font-weight: 300;
 }
 
-.clearfix::after, .clearfix::before {
+.clearfix::after,
+.clearfix::before {
   content: " ";
   display: table;
 }
@@ -96,16 +109,19 @@ a {
 .clearfix::after {
   clear: both;
 }
+
 @media (max-width: 1200px) {
   .profile .contact-info {
     margin-top: 70px;
   }
 }
+
 @media (max-width: 450px) {
   .profile .contact-info {
     margin-top: 50px;
   }
 }
+
 .profile .list-titles {
   float: left;
   text-align: left;
@@ -113,6 +129,7 @@ a {
   width: 40%;
   color: #4a4e51;
 }
+
 .profile .description-type {
   float: left;
   text-align: left;
@@ -121,37 +138,44 @@ a {
   width: 40%;
   color: #4a4e51;
 }
+
 .profile .list-content {
   float: left;
   width: 60%;
   text-align: left;
   font-weight: 300;
 }
+
 .profile .contact-presentation {
   text-align: left;
   font-weight: 300;
   margin-top: 100px;
   margin-bottom: 100px;
 }
+
 @media (max-width: 1200px) {
   .profile .contact-presentation {
     margin-top: 70px;
     margin-bottom: 70px;
   }
 }
+
 @media (max-width: 850px) {
   .profile .contact-presentation {
     margin-top: 50px;
     margin-bottom: 50px;
   }
 }
+
 .profile svg {
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
 }
-.profile .st0, .profile .st1 {
+
+.profile .st0,
+.profile .st1 {
   fill: #66cc99;
 }
 
@@ -165,11 +189,13 @@ a {
   min-height: 100%;
   min-height: 100vh;
 }
+
 @media (max-width: 850px) {
   .experience {
     width: 100%;
   }
 }
+
 .experience h3.experience-title {
   color: #66cc99;
   text-align: left;
@@ -178,6 +204,7 @@ a {
   margin-bottom: 20px;
   font-weight: 400;
 }
+
 .experience .company-wrapper {
   width: 20%;
   float: left;
@@ -185,12 +212,14 @@ a {
   padding-right: 5%;
   margin-bottom: 60px;
 }
+
 @media (max-width: 450px) {
   .experience .company-wrapper {
     width: 80%;
     margin-bottom: 20px;
   }
 }
+
 .experience .job-wrapper {
   width: 70%;
   float: left;
@@ -198,12 +227,14 @@ a {
   margin-bottom: 60px;
   padding-left: 100px;
 }
+
 @media (max-width: 450px) {
   .experience .job-wrapper {
     width: 100%;
     margin-bottom: 40px;
   }
 }
+
 .experience .experience-title {
   color: white;
   margin-bottom: 15px;
@@ -212,11 +243,13 @@ a {
 .section-padding {
   padding: 60px 60px 40px 40px;
 }
+
 @media (max-width: 850px) {
   .section-padding {
     padding: 80px 15% 40px 10%;
   }
 }
+
 @media (max-width: 450px) {
   .section-padding {
     padding: 40px 10% 20px 5%;
@@ -231,14 +264,17 @@ a {
   font-weight: 300;
   margin-bottom: 20px;
 }
+
 @media (max-width: 450px) {
   .section-wrapper {
     width: 100%;
   }
 }
+
 .section-wrapper:nth-child(3) {
   padding-right: 8%;
 }
+
 .section-wrapper h3.section-title {
   color: #66cc99;
   text-align: left;
@@ -247,10 +283,12 @@ a {
   margin-bottom: 20px;
   font-weight: 400;
 }
+
 .section-wrapper .skill-percentage {
   margin-bottom: 10px;
   position: relative;
 }
+
 .section-wrapper .skill-percentage::after {
   content: "";
   width: 100%;
@@ -260,6 +298,7 @@ a {
   margin-top: 3px;
 
 }
+
 .section-wrapper .skill-percentage::before {
   content: "";
   height: 6px;
@@ -268,65 +307,72 @@ a {
   margin-top: 3px;
   bottom: 0;
 }
+
 .section-wrapper .skill-percentage:nth-child(1)::before {
   width: 80%;
   -webkit-animation: skill_1 0.6s ease;
-          animation: skill_1 0.6s ease;
+  animation: skill_1 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(2)::before {
   width: 90%;
   -webkit-animation: skill_2 0.6s ease;
-          animation: skill_2 0.6s ease;
+  animation: skill_2 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(3)::before {
   width: 50%;
   -webkit-animation: skill_3 0.6s ease;
-          animation: skill_3 0.6s ease;
+  animation: skill_3 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(4)::before {
   width: 60%;
   -webkit-animation: skill_4 0.6s ease;
-          animation: skill_4 0.6s ease;
+  animation: skill_4 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(5)::before {
   width: 70%;
   -webkit-animation: skill_5 0.6s ease;
-          animation: skill_5 0.6s ease;
+  animation: skill_5 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(6)::before {
   width: 70%;
   -webkit-animation: skill_6 0.6s ease;
-          animation: skill_6 0.6s ease;
+  animation: skill_6 0.6s ease;
 }
+
 .section-wrapper .skill-percentage:nth-child(7)::before {
   width: 70%;
   -webkit-animation: skill_6 0.6s ease;
-          animation: skill_6 0.6s ease;
+  animation: skill_6 0.6s ease;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    input[type='range'] {
-      overflow: hidden;
-      width: 100%;
-      -webkit-appearance: none;
-      background-color: #4a4e51;
-    }
-    
-    input[type='range']::-webkit-slider-runnable-track {
-      height: 10px;
-      -webkit-appearance: none;
-      color: #13bba4;
-      margin-top: -1px;
-    }
-    
-    input[type='range']::-webkit-slider-thumb {
-      width: 10px;
-      -webkit-appearance: none;
-      height: 10px;
-      cursor: ew-resize;
-      background: #66cc99;
-      box-shadow: -200px 0 0 200px #66cc99;
-    }
+  input[type='range'] {
+    overflow: hidden;
+    width: 100%;
+    -webkit-appearance: none;
+    background-color: #4a4e51;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: #13bba4;
+    margin-top: -1px;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: #66cc99;
+    box-shadow: -200px 0 0 200px #66cc99;
+  }
 
 }
 
@@ -336,6 +382,7 @@ a {
   from {
     width: 0%;
   }
+
   to {
     width: 80%;
   }
@@ -345,102 +392,127 @@ a {
   from {
     width: 0%;
   }
+
   to {
     width: 80%;
   }
 }
+
 @-webkit-keyframes skill_2 {
   from {
     width: 0%;
   }
+
   to {
     width: 90%;
   }
 }
+
 @keyframes skill_2 {
   from {
     width: 0%;
   }
+
   to {
     width: 90%;
   }
 }
+
 @-webkit-keyframes skill_3 {
   from {
     width: 0%;
   }
+
   to {
     width: 50%;
   }
 }
+
 @keyframes skill_3 {
   from {
     width: 0%;
   }
+
   to {
     width: 50%;
   }
 }
+
 @-webkit-keyframes skill_4 {
   from {
     width: 0%;
   }
+
   to {
     width: 60%;
   }
 }
+
 @keyframes skill_4 {
   from {
     width: 0%;
   }
+
   to {
     width: 60%;
   }
 }
+
 @-webkit-keyframes skill_5 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }
 }
+
 @keyframes skill_5 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }
 }
+
 @-webkit-keyframes skill_6 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }
 }
+
 @keyframes skill_6 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }
 }
+
 @-webkit-keyframes skill_7 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }
 }
+
 @keyframes skill_7 {
   from {
     width: 0%;
   }
+
   to {
     width: 70%;
   }

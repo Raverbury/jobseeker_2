@@ -1,6 +1,7 @@
 <?php
 
-class cvCreateModel extends Model {
+class cvCreateModel extends Model
+{
   private $cvID;
   private $UserID;
   private $Name;
@@ -35,9 +36,10 @@ class cvCreateModel extends Model {
   private $slide6;
   private $hobbies;
 
-  public function loadParams($arr) {
+  public function loadParams($arr)
+  {
     foreach ($arr as &$ele) {
-        $ele = '"' . $ele .'"';
+      $ele = '"' . $ele . '"';
     }
     $this->UserID = $_SESSION['id'];
     $this->Name = $arr['Name'];
@@ -71,35 +73,32 @@ class cvCreateModel extends Model {
     $this->slide5 = $arr['slide5'];
     $this->slide6 = $arr['slide6'];
     $this->hobbies = $arr['hobbies'];
-
   }
-  
-	public function executeQuery() {
+
+  public function executeQuery()
+  {
     // if ($this->validate() == false) {
     //   return;
     // }
-		$id = NULL;
-		$role = NULL;
-		$retrievedPassword = NULL;
-		// retrieving user info
-		$query = 'INSERT INTO templates (Name , Phone, Mail, Web, Place, About,	company1, period1, role1, companydes1, company2, period2, role2, companydes2, company3,	period3, role3,	companydes3, skill1, skill2, skill3, skill4, skill5, skill6, slide1, slide2, slide3, slide4, slide5, slide6, hobbies, UserID) VALUES ('.$this->Name.', '.$this->Phone.', '.$this->Mail.', '.$this->Web.', '.$this->Place.', '.$this->About.', '.$this->company1.', '.$this->period1.', '.$this->role1.', '.$this->companydes1.', '.$this->company2.', '.$this->period2.', '.$this->role2.', '.$this->companydes2.', '.$this->company3.', '.$this->period3.', '.$this->role3.', '.$this->companydes3.', '.$this->_1.', '.$this->_2.', '.$this->_3.', '.$this->_4.', '.$this->_5.', '.$this->_6.', '.$this->slide1.', '.$this->slide2.', '.$this->slide3.', '.$this->slide4.', '.$this->slide5.', '.$this->slide6.', '.$this->hobbies.', '.$this->UserID.');';
-		print($query);
-        if ($statement = $this->dbInstance->prepare($query)) {
-			
-		}
-		else {
-			$this->result['message'] = 'Something went wrong. Please try again later.';
-			return;
-		}
-		if ($statement->execute()) {
-			$statement->store_result();
-            $this->result['message'] = 'OK';
-			
-                return;
-		}
-		else {
-			$this->result['message'] = 'Something went wrong. Please try again later.';
-			return;
-		}
-	}
+    $id = NULL;
+    $role = NULL;
+    $retrievedPassword = NULL;
+    // retrieving user info
+    $query = 'INSERT INTO templates (Name , Phone, Mail, Web, Place, About,	company1, period1, role1, companydes1, company2, period2, role2, companydes2, company3,	period3, role3,	companydes3, skill1, skill2, skill3, skill4, skill5, skill6, slide1, slide2, slide3, slide4, slide5, slide6, hobbies, UserID) VALUES (' . $this->Name . ', ' . $this->Phone . ', ' . $this->Mail . ', ' . $this->Web . ', ' . $this->Place . ', ' . $this->About . ', ' . $this->company1 . ', ' . $this->period1 . ', ' . $this->role1 . ', ' . $this->companydes1 . ', ' . $this->company2 . ', ' . $this->period2 . ', ' . $this->role2 . ', ' . $this->companydes2 . ', ' . $this->company3 . ', ' . $this->period3 . ', ' . $this->role3 . ', ' . $this->companydes3 . ', ' . $this->_1 . ', ' . $this->_2 . ', ' . $this->_3 . ', ' . $this->_4 . ', ' . $this->_5 . ', ' . $this->_6 . ', ' . $this->slide1 . ', ' . $this->slide2 . ', ' . $this->slide3 . ', ' . $this->slide4 . ', ' . $this->slide5 . ', ' . $this->slide6 . ', ' . $this->hobbies . ', ' . $this->UserID . ');';
+    print($query);
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
+    if ($statement->execute()) {
+      $statement->store_result();
+      $this->result['message'] = 'OK';
+
+      return;
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
+  }
 }

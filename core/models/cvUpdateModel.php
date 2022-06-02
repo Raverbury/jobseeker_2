@@ -1,6 +1,7 @@
 <?php
 
-class cvUpdateModel extends Model {
+class cvUpdateModel extends Model
+{
   private $cvID;
   private $UserID;
   private $Name;
@@ -35,9 +36,10 @@ class cvUpdateModel extends Model {
   private $slide6;
   private $hobbies;
 
-  public function loadParams($arr, $cvID) {
+  public function loadParams($arr, $cvID)
+  {
     foreach ($arr as &$ele) {
-        $ele = '"' . $ele .'"';
+      $ele = '"' . $ele . '"';
     }
     $this->cvID = $cvID;
     $this->UserID = $_SESSION['id'];
@@ -73,34 +75,32 @@ class cvUpdateModel extends Model {
     $this->slide6 = $arr['slide6'];
     $this->hobbies = $arr['hobbies'];
   }
-  
-	public function executeQuery() {
+
+  public function executeQuery()
+  {
     // if ($this->validate() == false) {
     //   return;
     // }
-		$id = NULL;
-		$role = NULL;
-		$retrievedPassword = NULL;
-		// retrieving user info
-        print($this->cvID);
-		$query = 'UPDATE templates SET Name = '.$this->Name.' , Phone = '.$this->Phone.', Mail = '.$this->Mail.', Web = '.$this->Web.', Place = '.$this->Place.', About = '.$this->About.',	company1 = '.$this->company1.', period1 = '.$this->period1.', role1 = '.$this->role1.', companydes1 = '.$this->companydes1.', company2 = '.$this->company2.', period2 = '.$this->period2.', role2 = '.$this->role2.', companydes2 = '.$this->companydes2.', company3 = '.$this->company3.', period3 = '.$this->period3.', role3 = '.$this->role3.', companydes3 = '.$this->companydes3.', skill1 = '.$this->_1.', skill2 = '.$this->_2.', skill3 = '.$this->_3.', skill4 = '.$this->_4.', skill5 = '.$this->_5.', skill6 = '.$this->_6.', slide1 = '.$this->slide1.', slide2 = '.$this->slide2.', slide3 = '.$this->slide3.', slide4 = '.$this->slide4.', slide5 = '.$this->slide5.', slide6 = '.$this->slide6.', hobbies = '.$this->hobbies.', UserID ='.$this->UserID.' WHERE cvID = '.$this->cvID.'';
-        print($query);
-        if ($statement = $this->dbInstance->prepare($query)) {
-			
-		}
-		else {
-			$this->result['message'] = 'Something went wrong. Please try again later.';
-			return;
-		}
-		if ($statement->execute()) {
-			$statement->store_result();
-            $this->result['message'] = 'OK';
-			
-                return;
-		}
-		else {
-			$this->result['message'] = 'Something went wrong. Please try again later.';
-			return;
-		}
-	}
+    $id = NULL;
+    $role = NULL;
+    $retrievedPassword = NULL;
+    // retrieving user info
+    print($this->cvID);
+    $query = 'UPDATE templates SET Name = ' . $this->Name . ' , Phone = ' . $this->Phone . ', Mail = ' . $this->Mail . ', Web = ' . $this->Web . ', Place = ' . $this->Place . ', About = ' . $this->About . ',	company1 = ' . $this->company1 . ', period1 = ' . $this->period1 . ', role1 = ' . $this->role1 . ', companydes1 = ' . $this->companydes1 . ', company2 = ' . $this->company2 . ', period2 = ' . $this->period2 . ', role2 = ' . $this->role2 . ', companydes2 = ' . $this->companydes2 . ', company3 = ' . $this->company3 . ', period3 = ' . $this->period3 . ', role3 = ' . $this->role3 . ', companydes3 = ' . $this->companydes3 . ', skill1 = ' . $this->_1 . ', skill2 = ' . $this->_2 . ', skill3 = ' . $this->_3 . ', skill4 = ' . $this->_4 . ', skill5 = ' . $this->_5 . ', skill6 = ' . $this->_6 . ', slide1 = ' . $this->slide1 . ', slide2 = ' . $this->slide2 . ', slide3 = ' . $this->slide3 . ', slide4 = ' . $this->slide4 . ', slide5 = ' . $this->slide5 . ', slide6 = ' . $this->slide6 . ', hobbies = ' . $this->hobbies . ', UserID =' . $this->UserID . ' WHERE cvID = ' . $this->cvID . '';
+    print($query);
+    if ($statement = $this->dbInstance->prepare($query)) {
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
+    if ($statement->execute()) {
+      $statement->store_result();
+      $this->result['message'] = 'OK';
+
+      return;
+    } else {
+      $this->result['message'] = 'Something went wrong. Please try again later.';
+      return;
+    }
+  }
 }
