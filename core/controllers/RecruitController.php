@@ -61,6 +61,7 @@ class RecruitController extends Controller
           $recruitModel->getJDWithId($params[0]);
           $this->result = $recruitModel->getResult();
           $result = $this->result;
+          $this->result['jdID'] = $params[0];
           if ($result['message'] == 'OK') {
             $this->view = 'recruitView';
             header("HTTP/1.0 200");
@@ -71,6 +72,43 @@ class RecruitController extends Controller
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('recruit/all');
+          }
+        } else {
+          $this->redirect('recruit/all');
+        }
+        break;
+      case 'apply':
+        if ($_SESSION['role'] != 'candidate') {
+          $_SESSION['message'] = 'Must be logged in as a candidate.';
+          $_SESSION['showMessage'] = true;
+          $_SESSION['messageType'] = 'danger';
+          $this->redirect('recruit/all');
+        }
+        if (count($params) > 0) {
+          $jdID = $params[0];
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $recruitModel->getJDWithId($params[0]);
+          $this->result = $recruitModel->getResult();
+          $result = $this->result;
+          if ($result['message'] == 'OK') {
+            $this->view = 'recruitView';
+            header("HTTP/1.0 200");
+            $this->head['title'] = 'View a JD';
+            $this->head['description'] = 'View a single JDs';
+          } else {
+            $_SESSION['message'] = $result['message'];
+            $_SESSION['showMessage'] = true;
+            $_SESSION['messageType'] = 'danger';
+            $this->redirect('recruit/all');
+          }
+          } else {
+            require('../core/models/FetchCVByUserModel.php');
+            $fetchCVs = new FetchCVByUserModel();
+            $fetchCVs->loadParams($_SESSION['id']);
+            $fetchCVs->executeQuery();
+            $cvs = $fetchCVs->getResult();
+            $this->data['cvs'] = $cvs['data'];
+            $this->view = 'apply';
           }
         } else {
           $this->redirect('recruit/all');
