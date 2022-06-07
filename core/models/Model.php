@@ -87,6 +87,16 @@ abstract class Model
       `hobbies` varchar(100) NOT NULL,
       FOREIGN KEY (UserID) REFERENCES users(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
+    $this->dbInstance->query($sql);$sql = '
+		create table if not exists application (
+      postID INT(11) NOT NULL,
+      userID INT(11) NOT NULL,
+      cvID INT(11) NOT NULL,
+      PRIMARY KEY (postID, userID),
+      FOREIGN KEY (postID) REFERENCES jobposts(postId),
+      FOREIGN KEY (userID) REFERENCES users(id),
+      FOREIGN KEY (cvID) REFERENCES templates(cvID)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
     $this->dbInstance->query($sql);
   }
 
