@@ -24,7 +24,7 @@ class RecruitController extends Controller
           $_SESSION['message'] = $result['message'];
           $_SESSION['showMessage'] = true;
           $_SESSION['messageType'] = 'danger';
-          // $this->redirect('recruit/all');
+          $this->redirect('home');
         }
         break;
       case 'create':

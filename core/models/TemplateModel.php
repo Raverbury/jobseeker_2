@@ -18,7 +18,6 @@ class TemplateModel extends Model
   public function executeQuery()
   {
     $template = [];
-    // get all users
     $query = "SELECT template role FROM templates";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {

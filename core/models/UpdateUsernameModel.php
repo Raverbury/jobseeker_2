@@ -19,7 +19,6 @@ class UpdateUsernameModel extends Model
   public function executeQuery()
   {
     $this->validate();
-    // retrieving user info
     $query = 'SELECT username FROM users WHERE username = ?';
     if ($statement = $this->dbInstance->prepare($query)) {
       $statement->bind_param('s', $this->newUsername);

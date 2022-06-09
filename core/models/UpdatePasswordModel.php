@@ -35,7 +35,6 @@ class UpdatePasswordModel extends Model
   public function executeQuery()
   {
     $this->validate();
-    // retrieving user info
     $query = 'SELECT id, username, password, role FROM users WHERE id = ' . $this->userId;
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {
