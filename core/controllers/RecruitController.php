@@ -87,28 +87,46 @@ class RecruitController extends Controller
         if (count($params) > 0) {
           $jdID = $params[0];
           if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          $recruitModel->getJDWithId($params[0]);
-          $this->result = $recruitModel->getResult();
-          $result = $this->result;
-          if ($result['message'] == 'OK') {
-            $this->view = 'recruitView';
-            header("HTTP/1.0 200");
-            $this->head['title'] = 'View a JD';
-            $this->head['description'] = 'View a single JDs';
-          } else {
-            $_SESSION['message'] = $result['message'];
-            $_SESSION['showMessage'] = true;
-            $_SESSION['messageType'] = 'danger';
-            $this->redirect('recruit/all');
-          }
+            require('../core/models/ApplyModel.php');
+            $apply = new ApplyModel();
+            $apply->loadParams($_POST['jdId'], $_POST['uid'], $_POST['cvId']);
+            $apply->executeQuery();
+            $result = $apply->getResult();
+            if ($result['message'] == 'OK') {
+              $this->redirect('recruit/apply/'.$jdID);
+            } else {
+              $_SESSION['message'] = $result['message'];
+              $_SESSION['showMessage'] = true;
+              $_SESSION['messageType'] = 'danger';
+              $this->redirect('recruit/all');
+            }
           } else {
             require('../core/models/FetchCVByUserModel.php');
             $fetchCVs = new FetchCVByUserModel();
             $fetchCVs->loadParams($_SESSION['id']);
             $fetchCVs->executeQuery();
             $cvs = $fetchCVs->getResult();
-            $this->data['cvs'] = $cvs['data'];
-            $this->view = 'apply';
+            require('../core/models/FetchApplicationModel.php');
+            $fetchApplied = new FetchApplicationModel();
+            $fetchApplied->loadParams($jdID, $_SESSION['id']);
+            $fetchApplied->executeQuery();
+            $applied = $fetchApplied->getResult();
+            if ($cvs['message'] == 'OK' && $applied['message'] == 'OK') {
+              $this->data['cvs'] = $cvs['data'];
+              $this->data['applied'] = $applied['data']['applied'];
+              $this->data['jdId'] = $jdID;
+              header("HTTP/1.0 200");
+              $this->head['title'] = 'Apply to a job';
+              $this->head['description'] = 'Apply a CV to a JD';
+              $this->view = 'recruitApply';
+            }
+            else {
+              $_SESSION['showMessage'] = true;
+              $_SESSION['message'] = 'CVs: ' . $cvs['message'] . '; applied: ' . $applied['message'];
+              $_SESSION['messageType'] = 'danger';
+              $this->redirect('home');
+            }
+            
           }
         } else {
           $this->redirect('recruit/all');

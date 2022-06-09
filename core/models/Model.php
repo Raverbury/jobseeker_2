@@ -88,7 +88,7 @@ abstract class Model
       FOREIGN KEY (UserID) REFERENCES users(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
     $this->dbInstance->query($sql);$sql = '
-		create table if not exists application (
+		create table if not exists applications (
       postID INT(11) NOT NULL,
       userID INT(11) NOT NULL,
       cvID INT(11) NOT NULL,
