@@ -29,7 +29,6 @@ class LoginModel extends Model
     $id = NULL;
     $role = NULL;
     $retrievedPassword = NULL;
-    // retrieving user info
     $query = 'SELECT id, username, password, role FROM users WHERE username = ?';
     if ($statement = $this->dbInstance->prepare($query)) {
       $statement->bind_param('s', $this->username);

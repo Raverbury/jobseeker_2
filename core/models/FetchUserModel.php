@@ -30,7 +30,6 @@ class FetchUserModel extends Model
     $ids = [];
     $usns = [];
     $roles = [];
-    // get all users
     $query = "SELECT id, username, role FROM users WHERE username LIKE '%" . $this->searchUsername . "%' AND role LIKE '%" . $this->filterRole . "%';";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {

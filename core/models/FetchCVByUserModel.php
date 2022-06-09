@@ -11,7 +11,6 @@ class FetchCVByUserModel extends Model
   {
     $IDs = [];
     $names = [];
-    // get all users
     $query = "SELECT Name, cvID FROM templates WHERE templates.UserID = ".$this->userId."";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {

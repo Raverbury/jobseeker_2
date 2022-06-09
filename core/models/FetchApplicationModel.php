@@ -12,7 +12,6 @@ class FetchApplicationModel extends Model
   public function executeQuery()
   {
     $cvIds = [];
-    // get all users
     $query = "SELECT cvID FROM applications WHERE applications.postID = ".$this->jdId." AND applications.userID = ".$this->userId.";";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {

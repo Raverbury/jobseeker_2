@@ -30,7 +30,6 @@ class FetchCVModel extends Model
     $IDs = [];
     $names = [];
     $owners = [];
-    // get all users
     $query = "SELECT Name, cvID, users.username FROM templates LEFT JOIN users ON templates.UserID = users.id";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {

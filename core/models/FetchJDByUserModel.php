@@ -11,7 +11,6 @@ class FetchJDByUserModel extends Model
   {
     $IDs = [];
     $titles = [];
-    // get all users
     $query = "SELECT title, postId FROM jobposts WHERE jobposts.userId = ".$this->userId."";
     if ($statement = $this->dbInstance->prepare($query)) {
     } else {
