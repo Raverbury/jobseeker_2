@@ -2,13 +2,11 @@
 
 ### 1. Install xampp if you haven't
 
-If xampp asks for anything, especially admin privileges, make sure to always say yes
-
-Dw it's safe, trust me. No seriously, do it, you don't want to deal with random errors halfway into the ass
+If xampp asks for anything, make sure to always say yes
 
 ### 2. Go to C:\xampp\htdocs, clone this repo
 
-Should look like this
+It should look like this
 ```
 xampp
   |-----htdocs
@@ -38,4 +36,4 @@ You need administrator privilege for this action
 
 ### 5. In xampp control panel, stop apache (if it's already running), close the control panel, restart (your pc preferably, and) the apache service
 
-### 6. Open any web browser, go to [jobseeker.localhost](http://jobseeker.localhost/). Pray that it works
+### 6. Open any web browser, go to [jobseeker.localhost](http://jobseeker.localhost/)
