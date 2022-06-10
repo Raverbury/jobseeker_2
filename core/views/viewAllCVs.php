@@ -1,6 +1,10 @@
 <div class="container">
   <h1 class="py-2">View all CVs</h1>
   <p>This page lists all CVs.</p>
+  <!-- <div class="input-group">
+    <input id="myInput" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+    <button type="button" class="btn btn-outline-primary">Search</button>
+  </div> -->
   <table class="table table-responsive-md table-bordered table-striped">
     <thead class="table-dark">
       <tr>
