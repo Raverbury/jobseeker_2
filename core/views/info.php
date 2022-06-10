@@ -15,5 +15,5 @@
 </div> -->
 
 <div class="container">
-  <img src="/public/Template/123.png">
+  <img src="/Template/123.png">
 </div>
