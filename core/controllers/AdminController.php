@@ -20,18 +20,14 @@ class AdminController extends Controller
       case 'addUser':
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
           // exec query
-          require("../core/models/RegisterModel.php");
-          $registerModel = new RegisterModel();
-          $registerModel->loadParams($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
-          $registerModel->executeQuery();
-          $result = $registerModel->getResult();
-          if ($result['message'] == 'OK') {
+          $response = UserModel::register($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
+          if ($response->message == 'OK') {
             $_SESSION['message'] = 'User has been registered.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('admin');
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->view = 'admin';
@@ -72,16 +68,11 @@ class AdminController extends Controller
         header("HTTP/1.0 200");
         $this->head['title'] = 'Admin';
         $this->head['description'] = 'Manage users';
-        // exec query
-        require("../core/models/FetchUserModel.php");
-        $um = new FetchUserModel();
-        $um->loadParams($this->data['currentPage'], $this->data['searchUsername'], $this->data['filterRole']);
-        $um->executeQuery();
-        $result = $um->getResult();
-        if ($result['message'] == 'OK') {
-          $this->data['numOfPages'] = $result['numOfPages'];
-          $this->data['users'] = $result['data'];
-          $this->data['currentPage'] = $result['currentPage'];
+        $response = UserModel::all($this->data['currentPage'], $this->data['searchUsername'], $this->data['filterRole']);
+        if ($response->message == 'OK') {
+          $this->data['numOfPages'] = $response->extra['numOfPages'];
+          $this->data['users'] = $response->query_result;
+          $this->data['currentPage'] = $response->extra['currentPage'];
         }
         break;
       default:
