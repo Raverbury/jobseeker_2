@@ -78,4 +78,31 @@ class UserModel extends PostgresModel
     $response->query_result = $result[0];
     return $response;
   }
+
+  public static function all(int $currentPage, string $searchUsername, string $filterRole)
+  {
+    define('ROWS_PER_PAGE', 10);
+    $response = new ModelResponse();
+    $searchUsername = ($searchUsername == '') ? '%' : $searchUsername;
+    $filterRole = ($filterRole == '') ? '%' : $filterRole;
+    $result = UserModel::getInstance()->run("SELECT id, username, role FROM users WHERE username LIKE '%{$searchUsername}%' AND role::text LIKE '%{$filterRole}%'");
+    $numOfPages = ceil(count($result) / ROWS_PER_PAGE);
+
+    // auto correct current page
+    if ($numOfPages < 1) {
+      $numOfPages = 1;
+    }
+    if ($currentPage < 1) {
+      $currentPage = 1;
+    } elseif ($currentPage > $numOfPages) {
+      $currentPage = $numOfPages;
+    }
+
+    $result = array_slice($result, ($currentPage - 1) * ROWS_PER_PAGE, ROWS_PER_PAGE);
+    $response->message = 'OK';
+    $response->query_result = $result;
+    $response->extra['numOfPages'] = $numOfPages;
+    $response->extra['currentPage'] = $currentPage;
+    return $response;
+  }
 }
