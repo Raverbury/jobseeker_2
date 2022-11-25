@@ -18,22 +18,19 @@ class LoginController extends Controller
       case '':
         // if this is from a login attempt aka with $_POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          require("../core/models/LoginModel.php");
-          $loginModel = new LoginModel();
-          $loginModel->loadParams($_POST['username'], $_POST['password']);
-          $loginModel->executeQuery();
-          $result = $loginModel->getResult();
-          if ($result['message'] == 'OK') {
-            $_SESSION['username'] = $result['username'];
-            $_SESSION['id'] = $result['id'];
-            $_SESSION['role'] = $result['role'];
+          $userModel = new UserModel();
+          $response = $userModel->login($_POST['username'], $_POST['password']);
+          if ($response->message == 'OK') {
+            $_SESSION['username'] = $response->query_result['username'];
+            $_SESSION['id'] = $response->query_result['id'];
+            $_SESSION['role'] = $response->query_result['role'];
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['message'] = 'Logged in successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('home');
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->view = 'login';

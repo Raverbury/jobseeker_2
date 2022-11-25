@@ -36,7 +36,35 @@ class UserModel extends PostgresModel
       return $response;
     }
 
-    $response->query_result = $result;
+    $response->query_result = $result[0];
+    return $response;
+  }
+
+  public function login(string $username, string $password)
+  {
+    $response = new ModelResponse();
+    if ($username == '') {
+      $response->message = 'The username cannot be empty.';
+      return $response;
+    }
+    if ($password == '') {
+      $response->message = 'The password cannot be empty.';
+      return $response;
+    }
+
+    $result = $this->run("SELECT * FROM users WHERE username = '{$username}'");
+    if (!$result || count($result) != 1) {
+      $response->message = 'Cannot find a user with such username.';
+      return $response;
+    }
+
+    if (!password_verify($password, $result[0]['password']))
+    {
+      $response->message = 'The provided password is incorrect.';
+      return $response;
+    }
+
+    $response->query_result = $result[0];
     return $response;
   }
 }
