@@ -73,12 +73,12 @@
       </thead>
       <tbody>
         <?php
-        for ($i = 0; $i < count($users[0]); $i++) {
+        foreach ($users as $user) {
           echo '<tr>
-            <td>' . $users[0][$i] . '</td>
-            <td>' . $users[1][$i] . '</td>
-            <td>' . $users[2][$i] . '</td>
-            </tr>';
+          <td>' . $user['id'] . '</td>
+          <td>' . $user['username'] . '</td>
+          <td>' . $user['role'] . '</td>
+          </tr>';
         }
         ?>
       </tbody>
@@ -90,38 +90,49 @@
       if ($currentPage == 1) echo '<li class="page-item disabled">';
       else echo '<li class="page-item">';
       ?>
-      <input class="page-link" type="button" value="Previous" onclick="submitSearch(<?php echo $currentPage - 1 ?>)">
+      <input class="page-link" type="button" value="First" onclick="submitSearch(1)">
       </li>
       <?php
-      $minCells = $numOfPages;
-      if ($minCells > 5) $minCells = 5;
-      $leftDist = $currentPage - 1;
-      $rightDist = $numOfPages - $currentPage;
-      $leftHalf = floor($minCells / 2);
-      $rightHalf = $minCells - $leftHalf;
-      if ($leftDist >= $leftHalf) {
-        $startPage = $currentPage - $leftHalf;
-      } else {
-        $startPage = $currentPage - $leftDist;
-        $rightHalf = $rightHalf + ($leftHalf - $leftDist);
+      $minCells = 5;
+      $leftPointer = $currentPage;
+      $rightPointer = $currentPage;
+      $cellCounter = 1;
+      $lowerLimitReached = false;
+      $upperLimitReached = false;
+      $range = [$currentPage];
+      while (true) {
+        $leftPointer = $leftPointer - 1;
+        $rightPointer = $rightPointer + 1;
+        if ($leftPointer > 0) {
+          array_push($range, $leftPointer);
+          $cellCounter += 1;
+        } else {
+          $lowerLimitReached = true;
+        }
+        if ($rightPointer <= $numOfPages) {
+          array_push($range, $rightPointer);
+          $cellCounter += 1;
+        } else {
+          $upperLimitReached = true;
+        }
+        if ($cellCounter >= $minCells || ($upperLimitReached && $lowerLimitReached)) {
+          break;
+        }
       }
-      if ($rightDist >= $rightHalf) {
-      } else {
-        $startPage = $startPage - ($rightHalf - $rightDist);
-      }
-      $start = $currentPage - floor($minCells / 2) - ceil($minCells / 2);
-      for ($i = $startPage + 1; $i <= $minCells; $i++) {
-        if ($i == $currentPage)
-          echo '<li class="page-item disabled"><input class="page-link" type="button" value="' . $i . '" onclick="submitSearch(' . $i . ')"></li>';
+      array_multisort($range);
+      foreach ($range as $num) {
+        if ($num == $currentPage)
+          echo '<li class="page-item disabled"><input class="page-link" type="button" value="' . $num . '" onclick="submitSearch(' . $num . ')"></li>';
         else
-          echo '<li class="page-item"><input class="page-link" type="button" value="' . $i . '" onclick="submitSearch(' . $i . ')"></li>';
+          echo '<li class="page-item"><input class="page-link" type="button" value="' . $num . '" onclick="submitSearch(' . $num . ')"></li>';
       }
+      //
       ?>
       <?php
       if ($currentPage == $numOfPages) echo '<li class="page-item disabled">';
       else echo '<li class="page-item">';
       ?>
-      <input class="page-link" type="button" value="Next" onclick="submitSearch(<?php echo $currentPage + 1 ?>)">
+      <input class="page-link" type="button" value="Last" onclick="submitSearch(<?php echo $numOfPages ?>)">
       </li>
     </ul>
   </nav>
