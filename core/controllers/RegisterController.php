@@ -18,13 +18,7 @@ class RegisterController extends Controller
       case '':
         // if this is from a register attempt aka with $_POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          // require("../core/models/RegisterModel.php");
-          // $registerModel = new RegisterModel();
-          // $registerModel->loadParams($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
-          // $registerModel->executeQuery();
-          // $result = $registerModel->getResult();
-          $userModel = new UserModel();
-          $response = $userModel->register($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
+          $response = UserModel::register($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
           if ($response->message == 'OK') {
             $_SESSION['username'] = $_POST['username'];
             $_SESSION['id'] = $response->query_result['id'];

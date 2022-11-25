@@ -18,8 +18,7 @@ class LoginController extends Controller
       case '':
         // if this is from a login attempt aka with $_POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $userModel = new UserModel();
-          $response = $userModel->login($_POST['username'], $_POST['password']);
+          $response = UserModel::login($_POST['username'], $_POST['password']);
           if ($response->message == 'OK') {
             $_SESSION['username'] = $response->query_result['username'];
             $_SESSION['id'] = $response->query_result['id'];
