@@ -16,12 +16,13 @@
     </thead>
     <tbody>
       <?php
-      for ($i = 0; $i < count($IDs); $i++) {
+      // for ($i = 0; $i < count($IDs); $i++) {
+      foreach ($allCvs as $cv) {
         echo '<tr>
-          <td>' . $names[$i] . '</td>
-          <td>' . $owners[$i] . '</td>
-          <td><a href="cv/view/' . $IDs[$i] . '"><u>View</u></a></td>
-          <td><a href="cv/edit/' . $IDs[$i] . '"><u>Edit</u></a></td>
+          <td>' . $cv['name'] . '</td>
+          <td>' . $cv['username'] . '</td>
+          <td><a href="cv/view/' . $cv['id'] . '"><u>View</u></a></td>
+          <td><a href="cv/edit/' . $cv['id'] . '"><u>Edit</u></a></td>
         </tr>';
       }
       ?>

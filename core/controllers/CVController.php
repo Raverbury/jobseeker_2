@@ -16,13 +16,8 @@ class CVController extends Controller
         $this->redirect('cv/all');
         break;
       case 'all':
-        require('../core/models/FetchCVModel.php');
-        $temp = new FetchCVModel();
-        $temp->executeQuery();
-        $result = $temp->getResult();
-        $this->data['names'] = $result['data'][0];
-        $this->data['IDs'] = $result['data'][1];
-        $this->data['owners'] = $result['data'][2];
+        $response = CVModel::all();
+        $this->data['allCvs'] = $response->query_result;
         header("HTTP/1.0 200");
         $this->head['title'] = 'View all CVs';
         $this->head['description'] = 'View all CVs';
@@ -106,18 +101,14 @@ class CVController extends Controller
           $this->redirect('cv/all');
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          require('../core/models/CreateCVModel.php');
-          $temp = new CreateCVModel();
-          $temp->loadParams($_POST);
-          $temp->executeQuery();
-          $result = $temp->getResult();
-          if ($result['message'] == 'OK') {
+          $response = CVModel::insert($_POST);
+          if ($response->message == 'OK') {
             $_SESSION['message'] = 'Your CV has been created successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('cv/all');
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response['message'];
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/create');

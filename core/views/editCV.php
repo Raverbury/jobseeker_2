@@ -9,7 +9,7 @@
             <div class="picture-resume">
 
               <div class="name-wrapper">
-                <h1><input name="Name" style="height:50px;font-size:14pt;" type="text" value="<?php echo $cvData['Name']; ?>"></h1> <!-- YOUR NAME AND LAST NAME  -->
+                <h1><input name="name" style="height:50px;font-size:14pt;" type="text" value="<?php echo $cvData['name']; ?>"></h1> <!-- YOUR NAME AND LAST NAME  -->
               </div>
               <div class="clearfix"></div>
               <div class="contact-info clearfix">
@@ -20,10 +20,10 @@
                   <li>Address</li>
                 </ul>
                 <ul class="list-content ">
-                  <li><input name="Phone" type="text" value="<?php echo $cvData['Phone']; ?>"></li> <!-- YOUR PHONE NUMBER  -->
-                  <li><input name="Mail" type="text" value="<?php echo $cvData['Mail']; ?>"></li> <!-- YOUR EMAIL -->
-                  <li><input name="Web" type="text" value="<?php echo $cvData['Web']; ?>"></li> <!-- YOUR WEBSITE  -->
-                  <li><input name="Place" type="text" value="<?php echo $cvData['Place']; ?>"></li> <!-- YOUR STATE AND COUNTRY  -->
+                  <li><input name="phone" type="text" value="<?php echo $cvData['phone']; ?>"></li> <!-- YOUR PHONE NUMBER  -->
+                  <li><input name="mail" type="text" value="<?php echo $cvData['mail']; ?>"></li> <!-- YOUR EMAIL -->
+                  <li><input name="web" type="text" value="<?php echo $cvData['web']; ?>"></li> <!-- YOUR WEBSITE  -->
+                  <li><input name="place" type="text" value="<?php echo $cvData['place']; ?>"></li> <!-- YOUR STATE AND COUNTRY  -->
                 </ul>
               </div>
               <div class="description">
@@ -34,7 +34,7 @@
               </div>
               <div class="contact-presentation">
                 <!-- YOUR PRESENTATION RESUME  -->
-                <textarea name="About" cols="50" rows="10"><?php echo $cvData['About']; ?></textarea>
+                <textarea name="about" cols="50" rows="10"><?php echo $cvData['about']; ?></textarea>
               </div>
 
             </div>

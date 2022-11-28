@@ -10,7 +10,7 @@
             <div class="picture-resume">
 
               <div class="name-wrapper">
-                <h1><input name="Name" style="height:50px;font-size:14pt;" type="text" value="THIEN HUYNH"></h1> <!-- YOUR NAME AND LAST NAME  -->
+                <h1><input name="name" style="height:50px;font-size:14pt;" type="text" value="THIEN HUYNH"></h1> <!-- YOUR NAME AND LAST NAME  -->
               </div>
               <div class="clearfix"></div>
               <div class="contact-info clearfix">
@@ -21,10 +21,10 @@
                   <li>Address</li>
                 </ul>
                 <ul class="list-content ">
-                  <li><input name="Phone" type="text" value="+123-45-678"></li> <!-- YOUR PHONE NUMBER  -->
-                  <li><input name="Mail" type="text" value="abc@gmail.com"></li> <!-- YOUR EMAIL -->
-                  <li><input name="Web" type="text" value="abcd.com"></li> <!-- YOUR WEBSITE  -->
-                  <li><input name="Place" type="text" value="Washington DC, US"></li> <!-- YOUR STATE AND COUNTRY  -->
+                  <li><input name="phone" type="text" value="+123-45-678"></li> <!-- YOUR PHONE NUMBER  -->
+                  <li><input name="mail" type="text" value="abc@gmail.com"></li> <!-- YOUR EMAIL -->
+                  <li><input name="web" type="text" value="abcd.com"></li> <!-- YOUR WEBSITE  -->
+                  <li><input name="place" type="text" value="Washington DC, US"></li> <!-- YOUR STATE AND COUNTRY  -->
                 </ul>
               </div>
               <div class="description">
@@ -35,7 +35,7 @@
               </div>
               <div class="contact-presentation">
                 <!-- YOUR PRESENTATION RESUME  -->
-                <textarea name="About" cols="50" rows="10"></textarea>
+                <textarea name="about" cols="50" rows="10"></textarea>
               </div>
 
             </div>

@@ -29,7 +29,7 @@ class LoginController extends Controller
             $_SESSION['messageType'] = 'success';
             $this->redirect('home');
           } else {
-            $_SESSION['message'] = $response['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->view = 'login';
