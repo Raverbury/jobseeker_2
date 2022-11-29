@@ -1,6 +1,6 @@
 <div>
   <div class="border resume-wrapper">
-    <form name="cvForm" class="bg-light p-2" action="cv/edit/<?php echo $cvData['cvID']; ?>" method="post">
+    <form name="cvForm" class="bg-light p-2" action="cv/edit/<?php echo $cvData['id']; ?>" method="post">
       <link rel="stylesheet" href="./Template/style.css">
 
       <section class="profile section-padding">

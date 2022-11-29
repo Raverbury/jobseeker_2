@@ -27,19 +27,15 @@ class CVController extends Controller
         if (count($params) == 0) {
           $this->redirect('cv/all');
         } else {
-          require('../core/models/ViewCVModel.php');
-          $temp = new ViewCVModel();
-          $temp->loadParams($params[0]);
-          $temp->executeQuery();
-          $result = $temp->getResult();
-          $this->data['cvData'] = $result['data'][0];
-          if ($result['message'] == 'OK') {
+          $response = CVModel::byId($params[0]);
+          $this->data['cvData'] = $response->query_result;
+          if ($response->message == 'OK') {
             $this->view = 'viewCV';
             header("HTTP/1.0 200");
             $this->head['title'] = 'View a CV';
             $this->head['description'] = 'View a single CV';
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/all');
@@ -51,42 +47,34 @@ class CVController extends Controller
           $this->redirect('cv/all');
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          require('../core/models/UpdateCVModel.php');
-          $temp = new UpdateCVModel();
-          $temp->loadParams($_POST, $params[0]);
-          $temp->executeQuery();
-          $result = $temp->getResult();
-          if ($result['message'] == 'OK') {
+          $response = CVModel::update($_POST, $params[0]);
+          if ($response->message == 'OK') {
             $_SESSION['message'] = 'Your CV has been updated successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('cv/all');
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/all');
           }
         } else {
-          require('../core/models/ViewCVModel.php');
-          $temp = new ViewCVModel();
-          $temp->loadParams($params[0]);
-          $temp->executeQuery();
-          $result = $temp->getResult();
-          if ($result['message'] == 'OK') {
-            if ($_SESSION['id'] != $result['data'][0]['UserID']) {
+          $response = CVModel::byId($params[0]);
+          if ($response->message == 'OK') {
+            if ($_SESSION['id'] != $response->query_result['owner_id']) {
               $_SESSION['message'] = 'You do not have permission to edit this CV (must be the owner).';
               $_SESSION['showMessage'] = true;
               $_SESSION['messageType'] = 'danger';
               $this->redirect('cv/all');
             }
-            $this->data['cvData'] = $result['data'][0];
+            $this->data['cvData'] = $response->query_result;
             $this->view = 'editCV';
             header("HTTP/1.0 200");
             $this->head['title'] = 'Edit a CV';
             $this->head['description'] = 'Edit your CV';
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/all');
@@ -108,7 +96,7 @@ class CVController extends Controller
             $_SESSION['messageType'] = 'success';
             $this->redirect('cv/all');
           } else {
-            $_SESSION['message'] = $response['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('cv/create');

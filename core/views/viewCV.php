@@ -1,6 +1,6 @@
 <div>
   <div class="border resume-wrapper">
-    <form name="cvForm" class="bg-light p-2" action="cv/view/<?php echo $cvData['cvID']; ?>" method="post">
+    <form name="cvForm" class="bg-light p-2" action="cv/view/<?php echo $cvData['id']; ?>" method="post">
       <link rel="stylesheet" href="./Template/style.css">
 
       <section class="profile section-padding">
@@ -9,7 +9,7 @@
             <div class="picture-resume">
 
               <div class="name-wrapper">
-                <h1><input name="Name" style="height:50px;font-size:14pt;" type="text" value="<?php echo $cvData['Name']; ?>" disabled></h1> <!-- YOUR NAME AND LAST NAME  -->
+                <h1><input name="Name" style="height:50px;font-size:14pt;" type="text" value="<?php echo $cvData['name']; ?>" disabled></h1> <!-- YOUR NAME AND LAST NAME  -->
               </div>
               <div class="clearfix"></div>
               <div class="contact-info clearfix">
@@ -20,10 +20,10 @@
                   <li>Address</li>
                 </ul>
                 <ul class="list-content ">
-                  <li><input name="Phone" type="text" value="<?php echo $cvData['Phone']; ?>" disabled></li> <!-- YOUR PHONE NUMBER  -->
-                  <li><input name="Mail" type="text" value="<?php echo $cvData['Mail']; ?>" disabled></li> <!-- YOUR EMAIL -->
-                  <li><input name="Web" type="text" value="<?php echo $cvData['Web']; ?>" disabled></li> <!-- YOUR WEBSITE  -->
-                  <li><input name="Place" type="text" value="<?php echo $cvData['Place']; ?>" disabled></li> <!-- YOUR STATE AND COUNTRY  -->
+                  <li><input name="Phone" type="text" value="<?php echo $cvData['phone']; ?>" disabled></li> <!-- YOUR PHONE NUMBER  -->
+                  <li><input name="Mail" type="text" value="<?php echo $cvData['mail']; ?>" disabled></li> <!-- YOUR EMAIL -->
+                  <li><input name="Web" type="text" value="<?php echo $cvData['web']; ?>" disabled></li> <!-- YOUR WEBSITE  -->
+                  <li><input name="Place" type="text" value="<?php echo $cvData['place']; ?>" disabled></li> <!-- YOUR STATE AND COUNTRY  -->
                 </ul>
               </div>
               <div class="description">
@@ -34,7 +34,7 @@
               </div>
               <div class="contact-presentation">
                 <!-- YOUR PRESENTATION RESUME  -->
-                <textarea name="About" cols="50" rows="10" disabled><?php echo $cvData['About']; ?></textarea>
+                <textarea name="About" cols="50" rows="10" disabled><?php echo $cvData['about']; ?></textarea>
               </div>
 
             </div>

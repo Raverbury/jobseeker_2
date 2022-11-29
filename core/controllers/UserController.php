@@ -26,12 +26,10 @@ class UserController extends Controller
           $_SESSION['messageType'] = 'danger';
           $this->redirect('home');
         }
-        require('../core/models/FetchCVByUserModel.php');
         $cvModel = new FetchCVByUserModel();
         $cvModel->loadParams($id);
         $cvModel->executeQuery();
         $cvResult = $cvModel->getResult();
-        require('../core/models/FetchJDByUserModel.php');
         $jdModel = new FetchJDByUserModel();
         $jdModel->loadParams($id);
         $jdModel->executeQuery();
