@@ -105,4 +105,71 @@ class UserModel extends PostgresModel
     $response->extra['currentPage'] = $currentPage;
     return $response;
   }
+
+  public static function updatePassword(string $id, string $old_password, string $new_password, string $repeat_password)
+  {
+    $response = new ModelResponse();
+    try {
+      if ($old_password == '') {
+        $response->message = 'The old password cannot be empty.';
+        return $response;
+      }
+      if ($new_password == '') {
+        $response->message = 'The new password cannot be empty.';
+        return $response;
+      }
+      if ($new_password == '') {
+        $response->message = 'The repeat password cannot be empty.';
+        return $response;
+      }
+      if ($repeat_password != $new_password) {
+        $response->message = 'The new passwords do not match.';
+        return $response;
+      }
+
+      $query = "SELECT * FROM users WHERE id = {$id}";
+      $result = UserModel::getInstance()->run($query);
+      $result = $result[0];
+      if (!password_verify($old_password, $result['password'])) {
+        $response->message = "Old password is incorrect.";
+        return $response;
+      }
+
+      $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+      $query = "UPDATE users SET password = '{$hashed_password}' WHERE id = {$id}";
+      UserModel::getInstance()->run($query);
+
+      $response->message = "OK";
+    } catch (Exception $e) {
+      $response->message = "Something went wrong. {$e->getMessage()}";
+    }
+    return $response;
+  }
+
+  public static function updateUsername(string $id, string $username)
+  {
+    $response = new ModelResponse();
+    try {
+      if ($username == "") {
+        $response->message = "The new username cannot be empty.";
+        return $response;
+      }
+
+      $query = "SELECT * FROM users WHERE username = '{$username}'";
+      $result = UserModel::getInstance()->run($query);
+      if (count($result) >= 1) {
+        $response->message = "This username is already in taken.";
+        return $response;
+      }
+
+      $query = "UPDATE users SET username = '{$username}' WHERE id = '{$id}'";
+      UserModel::getInstance()->run($query);
+
+      $response->message = "OK";
+    } catch (Exception $e) {
+      $response->message = "Something went wrong. {$e->getMessage()}";
+    }
+    return $response;
+  }
 }

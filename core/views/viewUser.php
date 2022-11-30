@@ -14,11 +14,11 @@
     </thead>
     <tbody>
       <?php
-      for ($i = 0; $i < count($cv['cvNames']); $i++) {
+      foreach ($CVs as $cv) {
         echo '<tr>
-        <td>' . $cv['cvNames'][$i] . '</td>
-        <td><a href="cv/view/' . $cv['cvIDs'][$i] . '"><u>View</u></a></td>
-        <td><a href="cv/edit/' . $cv['cvIDs'][$i] . '"><u>Edit</u></a></td>
+        <td>' . $cv['name'] . '</td>
+        <td><a href="cv/view/' . $cv['id'] . '"><u>View</u></a></td>
+        <td><a href="cv/edit/' . $cv['id'] . '"><u>Edit</u></a></td>
       </tr>';
       }
       ?>
@@ -34,10 +34,10 @@
     </thead>
     <tbody>
       <?php
-      for ($i = 0; $i < count($jd['jdTitles']); $i++) {
+      foreach ($JDs as $jd) {
         echo '<tr>
-        <td>' . $jd['jdTitles'][$i] . '</td>
-        <td><a href="recruit/view/' . $jd['jdIDs'][$i] . '"><u>View</u></a></td>
+        <td>' . $jd['title'] . '</td>
+        <td><a href="recruit/view/' . $jd['id'] . '"><u>View</u></a></td>
       </tr>';
       }
       ?>

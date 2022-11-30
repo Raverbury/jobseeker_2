@@ -17,7 +17,7 @@ class CVModel extends PostgresModel
       foreach ($post_data as &$ele) {
         $ele = "'" . htmlspecialchars($ele, ENT_QUOTES) . "'";
       }
-      
+
       $user_id = $_SESSION['id'];
       $title = $post_data['name'];
       $phone = $post_data['phone'];
@@ -134,14 +134,11 @@ class CVModel extends PostgresModel
       } else {
         $response->message = "OK";
         $result = $result[0];
-        foreach ($result as &$ele) {
-          $ele = $ele;
-        }
         $response->query_result = $result;
       }
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
-  }
+    }
     return $response;
   }
 
@@ -150,16 +147,9 @@ class CVModel extends PostgresModel
     $response = new ModelResponse();
     try {
       $result = CVModel::getInstance()->run("SELECT * FROM templates WHERE owner_id = " . $id . "");
-      if (count($result) <= 0) {
-        $response->message = "Cannot find a CV with such ID.";
-      } else {
-        $response->message = "OK";
-        $result = $result[0];
-        foreach ($result as &$ele) {
-          $ele = $ele;
-        }
-        $response->query_result = $result;
-      }
+      $response->message = "OK";
+      $result = $result;
+      $response->query_result = $result;
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
     }

@@ -26,17 +26,11 @@ class UserController extends Controller
           $_SESSION['messageType'] = 'danger';
           $this->redirect('home');
         }
-        $cvModel = new FetchCVByUserModel();
-        $cvModel->loadParams($id);
-        $cvModel->executeQuery();
-        $cvResult = $cvModel->getResult();
-        $jdModel = new FetchJDByUserModel();
-        $jdModel->loadParams($id);
-        $jdModel->executeQuery();
-        $jdResult = $jdModel->getResult();
-        if ($cvResult['message'] == 'OK' && $jdResult['message'] == 'OK') {
-          $this->data['cv'] = $cvResult['data'];
-          $this->data['jd'] = $jdResult['data'];
+        $cv_response = CVModel::byOwnerId($id);
+        $jd_response = JDModel::byOwnerId($id);
+        if ($cv_response->message == "OK" && $jd_response->message == "OK") {
+          $this->data['CVs'] = $cv_response->query_result;
+          $this->data['JDs'] = $jd_response->query_result;
           header("HTTP/1.0 200");
           $this->head['title'] = 'Profile';
           $this->head['description'] = 'User profile page';
@@ -44,7 +38,7 @@ class UserController extends Controller
         }
         else {
           $_SESSION['showMessage'] = true;
-          $_SESSION['message'] = 'CV: ' . $cvResult['message'] . '; JD: ' . $jdResult['message'];
+          $_SESSION['message'] = 'CV: ' . $cv_response->message . '; JD: ' . $jd_response->message;
           $_SESSION['messageType'] = 'danger';
           $this->redirect('home');
         }
@@ -57,19 +51,15 @@ class UserController extends Controller
           else {
             $id = array_shift($params);
           }
-          require('../core/models/UpdateUsernameModel.php');
-          $UUM = new UpdateUsernameModel();
-          $UUM->loadParams($_POST['username'], $id);
-          $UUM->executeQuery();
-          $result = $UUM->getResult();
-          if ($result['message'] == 'OK') {
+          $response = UserModel::updateUsername($id, $_POST['username']);
+          if ($response->message == 'OK') {
             $_SESSION['message'] = 'Username was changed successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $_SESSION['username'] = $_POST['username'];
             $this->redirect('user/view/'.$_SESSION['id']);
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('user/view/'.$_SESSION['id']);
@@ -87,18 +77,14 @@ class UserController extends Controller
           else {
             $id = array_shift($params);
           }
-          require('../core/models/UpdatePasswordModel.php');
-          $UPM = new UpdatePasswordModel();
-          $UPM->loadParams($_POST['oldPassword'], $_POST['newPassword'], $_POST['repeatPassword'], $id);
-          $UPM->executeQuery();
-          $result = $UPM->getResult();
-          if ($result['message'] == 'OK') {
+          $response = UserModel::updatePassword($id, $_POST['oldPassword'], $_POST['newPassword'], $_POST['repeatPassword']);
+          if ($response->message == 'OK') {
             $_SESSION['message'] = 'Password was changed successfully.';
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'success';
             $this->redirect('user/view/'.$_SESSION['id']);
           } else {
-            $_SESSION['message'] = $result['message'];
+            $_SESSION['message'] = $response->message;
             $_SESSION['showMessage'] = true;
             $_SESSION['messageType'] = 'danger';
             $this->redirect('user/view/'.$_SESSION['id']);
