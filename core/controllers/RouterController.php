@@ -1,13 +1,38 @@
 <?php
+define("SESSION_EXPIRE_TIME", "1 minutes"); // in minutes
+
 // main controller, called so often that it might as well act be a part of the index
 class RouterController extends Controller
 {
   protected $controller;
 
+
   function __construct()
   {
     session_start();
-    if (!isset($_SESSION['id'])) {
+    if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn']) {
+      if (isset($_SESSION['lastActive'])) {
+        $session_expire_time = date('Y-m-d H:i:s', strtotime("+" . SESSION_EXPIRE_TIME, strtotime($_SESSION['lastActive'])));
+        $current_time = date('Y-m-d H:i:s');
+        // echo ($session_expire_time);
+        // echo ($current_time);
+        if (strtotime($session_expire_time) < strtotime($current_time)) {
+          $_SESSION['username'] = 'Guest';
+          $_SESSION['id'] = -1;
+          $_SESSION['role'] = 'guest';
+          $_SESSION['isLoggedIn'] = false;
+          $_SESSION['message'] = 'Session has expired. Please log in again.';
+          $_SESSION['showMessage'] = true;
+          $_SESSION['messageType'] = 'warning';
+          unset($_SESSION['lastActive']);
+          $this->redirect('home');
+        } else {
+          $_SESSION['lastActive'] = date('Y-m-d H:i:s');
+        }
+      } else {
+        $_SESSION['lastActive'] = date('Y-m-d H:i:s');
+      }
+    } elseif (!isset($_SESSION['id'])) {
       $_SESSION['username'] = 'Guest';
       $_SESSION['id'] = -1;
       $_SESSION['role'] = 'guest';
@@ -16,6 +41,7 @@ class RouterController extends Controller
       $_SESSION['showMessage'] = false;
       $_SESSION['messageType'] = 'primary';
     }
+    // echo json_encode($_SESSION);
   }
 
   public function process($params)
