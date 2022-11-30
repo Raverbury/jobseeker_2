@@ -77,7 +77,7 @@ class UserController extends Controller
           else {
             $id = array_shift($params);
           }
-          $response = UserModel::updatePassword($id, $_POST['oldPassword'], $_POST['newPassword'], $_POST['repeatPassword']);
+          $response = UserModel::updatePassword($id, $_POST['oldPassword'], $_POST['newPassword'], $_POST['retypePassword']);
           if ($response->message == 'OK') {
             $_SESSION['message'] = 'Password was changed successfully.';
             $_SESSION['showMessage'] = true;

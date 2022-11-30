@@ -34,6 +34,13 @@ class ApplicationModel extends PostgresModel
   {
     $response = new ModelResponse();
     try {
+      $query = "SELECT * FROM jobposts WHERE id = {$jd_id}";
+      $result = ApplicationModel::getInstance()->run($query);
+
+      if (count($result) <= 0) {
+        $response->message = "Cannot find a JD with such ID.";
+        return $response;
+      }
       $query = "SELECT cv_id FROM applications WHERE applications.post_id = {$jd_id} AND applications.user_id = {$user_id}";
 
       $result = ApplicationModel::getInstance()->run($query);
