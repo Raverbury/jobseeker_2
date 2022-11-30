@@ -10,14 +10,14 @@
     </thead>
     <tbody>
       <?php
-      for ($i = 0; $i < count($cvs['cvNames']); $i++) {
+      foreach ($cvs as $cv) {
         echo '<tr>
-          <td>' . $cvs['cvNames'][$i] . '</td>';
-        if ($cvs['cvIDs'][$i] == $applied) {
+          <td>' . $cv['name'] . '</td>';
+        if ($cv['id'] == $applied) {
           echo '<td><button class="btn btn-danger" onclick="apply(\'delete\')">Withdraw</button></td>
         </tr>';
         } else {
-          echo '<td><button class="btn btn-primary" onclick="apply(' . $cvs['cvIDs'][$i] . ')" ' . $cvs['cvIDs'][$i] . '">Apply</button></td>
+          echo '<td><button class="btn btn-primary" onclick="apply(' . $cv['id'] . ')" ' . $cv['id'] . '">Apply</button></td>
         </tr>';
         }
       }

@@ -10,14 +10,10 @@ abstract class PostgresModel
   private $pdo;
   function __construct()
   {
-    $temp_pdo = new PDO(PostgresModel::getDSN(false), DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    try {
-      $temp_pdo->exec('CREATE DATABASE "' . DB_DATABASE . '";');
-    } catch (Exception $e) {
-      // print($e->getMessage());
-      // do nothing, probably because of duplicate
-      // imagine not supporting IF NOT EXISTS for CREATE DATABASE when it's perfectly valid with CREATE TABLE
-    }
+    $this->pdo = new PDO(PostgresModel::getDSN(false), DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    // suppress error here because it's probably because of a duplicate
+    // imagine not supporting create database if not exists when it works perfectly fine with create table smh
+    $this->run('CREATE DATABASE "' . DB_DATABASE . '";', true);
     $this->pdo = new PDO(PostgresModel::getDSN(), DB_USERNAME, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $this->autoCreateTables();
   }
@@ -83,8 +79,8 @@ abstract class PostgresModel
       owner_id integer REFERENCES users NOT NULL,
       company_name text NOT NULL,
       title text NOT NULL,
-      exp_year int NOT NULL,
-      salary int NOT NULL,
+      exp_year text NOT NULL,
+      salary text NOT NULL,
       job_description text NOT NULL
     )';
     $this->run($sql);
@@ -96,22 +92,22 @@ abstract class PostgresModel
     CREATE TABLE IF NOT EXISTS templates (
       id SERIAL NOT NULL PRIMARY KEY,
       owner_id integer REFERENCES users NOT NULL,
-      name varchar(100) NOT NULL,
-      phone varchar(15) NOT NULL,
-      mail varchar(100) NOT NULL,
-      web varchar(100) NOT NULL,
-      place varchar(100) NOT NULL,
-      about varchar(100) NOT NULL,
-      company1 varchar(100),
-      period1 varchar(128),
+      name text NOT NULL,
+      phone text NOT NULL,
+      mail text NOT NULL,
+      web text NOT NULL,
+      place text NOT NULL,
+      about text NOT NULL,
+      company1 text,
+      period1 text,
       role1 text,
       companydes1 text,
-      company2 varchar(100),
-      period2 varchar(128),
+      company2 text,
+      period2 text,
       role2 text,
       companydes2 text,
-      company3 varchar(100),
-      period3 varchar(128),
+      company3 text,
+      period3 text,
       role3 text,
       companydes3 text,
       skill1 text,
@@ -120,12 +116,12 @@ abstract class PostgresModel
       skill4 text,
       skill5 text,
       skill6 text,
-      slide1 varchar(100) NOT NULL,
-      slide2 varchar(100) NOT NULL,
-      slide3 varchar(100) NOT NULL,
-      slide4 varchar(100) NOT NULL,
-      slide5 varchar(100) NOT NULL,
-      slide6 varchar(100) NOT NULL,
+      slide1 text NOT NULL,
+      slide2 text NOT NULL,
+      slide3 text NOT NULL,
+      slide4 text NOT NULL,
+      slide5 text NOT NULL,
+      slide6 text NOT NULL,
       hobbies text
     )';
     $this->run($sql);

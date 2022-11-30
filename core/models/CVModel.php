@@ -9,7 +9,10 @@ class CVModel extends PostgresModel
     }
     return CVModel::$instance;
   }
-
+  private function __construct()
+  {
+    parent::__construct();
+  }
   public static function update(array $post_data, string $cvId)
   {
     $response = new ModelResponse();

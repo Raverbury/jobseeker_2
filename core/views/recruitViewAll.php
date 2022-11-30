@@ -12,12 +12,12 @@
     </thead>
     <tbody>
       <?php
-      for ($i = 0; $i < count($this->result['data'][0]); $i++) {
+      foreach ($allJDs as $jd) {
         echo '<tr>
-          <td>' . $this->result['data'][2][$i] . '</td>
-          <td>' . $this->result['data'][3][$i] . '</td>
-          <td>' . $this->result['data'][4][$i] . ' year(s)</td>
-          <td><a href="recruit/view/' . $this->result['data'][0][$i] . '"><u>View</u></a></td>
+          <td>' . $jd['company_name'] . '</td>
+          <td>' . $jd['title'] . '</td>
+          <td>' . $jd['exp_year'] . '</td>
+          <td><a href="recruit/view/' . $jd['id'] . '"><u>View</u></a></td>
         </tr>';
       }
       ?>

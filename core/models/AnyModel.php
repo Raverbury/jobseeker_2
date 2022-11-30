@@ -1,6 +1,10 @@
 <?php
 class AnyModel extends PostgresModel
 {
+  private function __construct()
+  {
+    parent::__construct();
+  }
   public function custom_query($sql)
   {
     $response = new ModelResponse();

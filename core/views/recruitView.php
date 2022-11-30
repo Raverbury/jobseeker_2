@@ -7,7 +7,7 @@
     readonly: 1
   }).then(() => {
     setTimeout(400)
-    tinymce.get("editor").setContent(document.getElementById("jobdes").value);
+    tinymce.get("editor").setContent(document.getElementById("job_des").value);
   });
 </script>
 
@@ -15,23 +15,23 @@
   <h1 class="py-2">Job post</h2>
     <form class="form-horizontal">
       <label class="control-label col-sm-2">Company's name</label></br>
-      <input type="text" class="form-control" name="companyname" id="companyname" value=<?php
-                                                                                        echo $this->result['data']['companyname']
-                                                                                        ?> readonly></br>
+      <input type="text" class="form-control" name="company_name" id="company_name" value=<?php
+                                                                                          echo $jd['company_name'];
+                                                                                          ?> readonly></br>
 
       <label class="control-label col-sm-2">Job title/position</label></br>
       <input type="text" class="form-control" placeholder="Engineer, Tester..." name="title" id="title" value=<?php
-                                                                                                              echo $this->result['data']['title']
+                                                                                                              echo $jd['title']
                                                                                                               ?> readonly></br>
 
       <label class="control-label col-sm-2">Years of experience</label></br>
-      <input type="text" class="form-control" placeholder="Years of experience" name="expyear" id="expyear" value=<?php
-                                                                                                                  echo $this->result['data']['expyear']
-                                                                                                                  ?> readonly></br>
+      <input type="text" class="form-control" placeholder="Years of experience" name="exp_year" id="exp_year" value=<?php
+                                                                                                                    echo $jd['exp_year']
+                                                                                                                    ?> readonly></br>
 
       <label class="control-label col-sm-2">Salary offered</label></br>
-      <input type="text" class="form-control" placeholder="Salary" name="salary" id='salary' value=<?php
-                                                                                                    echo $this->result['data']['salary']
+      <input type="text" class="form-control" placeholder="Salary" name="salary" id="salary" value=<?php
+                                                                                                    echo $jd['salary']
                                                                                                     ?> readonly></br>
 
       <label>Job description</label>
@@ -39,15 +39,15 @@
         <textarea id="editor"></textarea>
       </div></br>
 
-      <input type="text" class="form-control" name="jobdes" id='jobdes' hidden="true" value=<?php
-                                                                                            echo $this->result['data']['jobdes']
-                                                                                            ?>></br>
+      <input type="text" class="form-control" name="job_des" id='job_des' hidden="true" value=<?php
+                                                                                              echo $jd['job_description']
+                                                                                              ?>></br>
     </form class="form-horizontal">
 
     <?php if ($_SESSION['isLoggedIn'] && $_SESSION['role'] == 'candidate') {
       echo '
     <!-- Button trigger modal -->
-    <a href="recruit/apply/'.$this->result['jdID'].'" class="btn btn-primary">
+    <a href="recruit/apply/' . $jd['id'] . '" class="btn btn-primary">
       Apply for this position
     </a>';
     } ?>

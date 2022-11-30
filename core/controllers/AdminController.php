@@ -19,7 +19,6 @@ class AdminController extends Controller
         break;
       case 'addUser':
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-          // exec query
           $response = UserModel::register($_POST['username'], $_POST['password'], $_POST['retypePassword'], $_POST['role']);
           if ($response->message == 'OK') {
             $_SESSION['message'] = 'User has been registered.';
@@ -37,42 +36,46 @@ class AdminController extends Controller
         }
       case 'viewAllUsers':
         // check params
-        $this->data['currentPage'] = 1;
-        $this->data['searchUsername'] = '';
-        $this->data['filterRole'] = '';
-        $bad = false;
-        if (isset($_GET['page'])) {
-          if (is_numeric($_GET['page'])) {
-            $this->data['currentPage'] = (int)($_GET['page']);
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+          $this->data['currentPage'] = 1;
+          $this->data['searchUsername'] = '';
+          $this->data['filterRole'] = '';
+          $bad = false;
+          if (isset($_GET['page'])) {
+            if (is_numeric($_GET['page'])) {
+              $this->data['currentPage'] = (int)($_GET['page']);
+            } else {
+              $bad = true;
+            }
           } else {
             $bad = true;
           }
+          if (isset($_GET['searchUsername'])) {
+            $this->data['searchUsername'] = $_GET['searchUsername'];
+          } else {
+            $bad = true;
+          }
+          if (isset($_GET['filterRole'])) {
+            $this->data['filterRole'] = $_GET['filterRole'];
+          } else {
+            $bad = true;
+          }
+          if ($bad) {
+            $final = 'admin/viewAllUsers?page=' . $this->data['currentPage'] . '&searchUsername=' . $this->data['searchUsername'] . '&filterRole=' . $this->data['filterRole'];
+            $this->redirect($final);
+          }
+          $this->view = 'admin';
+          header("HTTP/1.0 200");
+          $this->head['title'] = 'Admin';
+          $this->head['description'] = 'Manage users';
+          $response = UserModel::all($this->data['currentPage'], $this->data['searchUsername'], $this->data['filterRole']);
+          if ($response->message == 'OK') {
+            $this->data['numOfPages'] = $response->extra['numOfPages'];
+            $this->data['users'] = $response->query_result;
+            $this->data['currentPage'] = $response->extra['currentPage'];
+          }
         } else {
-          $bad = true;
-        }
-        if (isset($_GET['searchUsername'])) {
-          $this->data['searchUsername'] = $_GET['searchUsername'];
-        } else {
-          $bad = true;
-        }
-        if (isset($_GET['filterRole'])) {
-          $this->data['filterRole'] = $_GET['filterRole'];
-        } else {
-          $bad = true;
-        }
-        if ($bad) {
-          $final = 'admin/viewAllUsers?page=' . $this->data['currentPage'] . '&searchUsername=' . $this->data['searchUsername'] . '&filterRole=' . $this->data['filterRole'];
-          $this->redirect($final);
-        }
-        $this->view = 'admin';
-        header("HTTP/1.0 200");
-        $this->head['title'] = 'Admin';
-        $this->head['description'] = 'Manage users';
-        $response = UserModel::all($this->data['currentPage'], $this->data['searchUsername'], $this->data['filterRole']);
-        if ($response->message == 'OK') {
-          $this->data['numOfPages'] = $response->extra['numOfPages'];
-          $this->data['users'] = $response->query_result;
-          $this->data['currentPage'] = $response->extra['currentPage'];
+          $this->redirect('admin');
         }
         break;
       default:
