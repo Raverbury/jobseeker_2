@@ -1,5 +1,5 @@
 <?php
-define("SESSION_EXPIRE_TIME", "1 minutes"); // in minutes
+define("SESSION_EXPIRE_TIME", "30 minutes");
 
 // main controller, called so often that it might as well act be a part of the index
 class RouterController extends Controller
