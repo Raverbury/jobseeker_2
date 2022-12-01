@@ -127,7 +127,7 @@ abstract class PostgresModel
     $this->run($sql);
   }
 
-  private function createApplicatiosTable()
+  private function createApplicationsTable()
   {
     $sql = '
     CREATE TABLE IF NOT EXISTS applications (
@@ -145,7 +145,7 @@ abstract class PostgresModel
     $this->createUsersTable();
     $this->createJobpostsTable();
     $this->createTemplatesTable();
-    $this->createApplicatiosTable();
+    $this->createApplicationsTable();
   }
 }
 

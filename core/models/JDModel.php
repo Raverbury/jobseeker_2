@@ -16,6 +16,7 @@ class JDModel extends PostgresModel
   public static function byOwnerId(string $id)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $result = JDModel::getInstance()->run("SELECT * FROM jobposts WHERE owner_id = " . $id . "");
       $response->message = "OK";
@@ -23,13 +24,16 @@ class JDModel extends PostgresModel
       $response->query_result = $result;
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function insert(array $form_data)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       foreach ($form_data as &$ele) {
         if ($ele == '') $ele = 'None';
@@ -50,13 +54,16 @@ class JDModel extends PostgresModel
       $response->message = "OK";
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function all(string $search_key = "")
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $search_key = ($search_key == '') ? '%' : $search_key;
       $result = JDModel::getInstance()->run("SELECT * FROM jobposts LEFT JOIN users ON jobposts.owner_id = users.id WHERE jobposts.title LIKE '%{$search_key}%'");
@@ -64,26 +71,33 @@ class JDModel extends PostgresModel
       $response->query_result = $result;
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
-      throw $e;
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function byId(string $id)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $result = JDModel::getInstance()->run("SELECT * FROM jobposts WHERE id = " . $id . "");
       if (count($result) <= 0) {
-        $response->message = "Cannot find a JD with such ID.";
+        throw new ExplicitException("Cannot find a JD with such ID.");
       } else {
         $response->message = "OK";
         $result = $result[0];
         $response->query_result = $result;
       }
+    } catch (ExplicitException $e) {
+      $response->message = $e->getMessage();
+      TransactionModel::rollback();
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 }

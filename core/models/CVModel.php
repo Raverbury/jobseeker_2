@@ -66,6 +66,7 @@ class CVModel extends PostgresModel
   public static function insert(array $post_data)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       foreach ($post_data as &$ele) {
         if ($ele == '') $ele = 'None';
@@ -109,13 +110,16 @@ class CVModel extends PostgresModel
       $response->message = "OK";
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function all(string $search_key = "")
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $search_key = ($search_key == '') ? '%' : $search_key;
       $result = CVModel::getInstance()->run("SELECT name, templates.id, users.username FROM templates LEFT JOIN users ON templates.owner_id = users.id WHERE name LIKE '%{$search_key}%'");
@@ -123,31 +127,40 @@ class CVModel extends PostgresModel
       $response->query_result = $result;
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function byId(string $id)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $result = CVModel::getInstance()->run("SELECT * FROM templates WHERE id = " . $id . "");
       if (count($result) <= 0) {
-        $response->message = "Cannot find a CV with such ID.";
+        throw new ExplicitException("Cannot find a CV with such ID.");
       } else {
         $response->message = "OK";
         $result = $result[0];
         $response->query_result = $result;
       }
+    } catch (ExplicitException $e) {
+      $response->message = $e->getMessage();
+      TransactionModel::rollback();
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 
   public static function byOwnerId(string $id)
   {
     $response = new ModelResponse();
+    TransactionModel::begin();
     try {
       $result = CVModel::getInstance()->run("SELECT * FROM templates WHERE owner_id = " . $id . "");
       $response->message = "OK";
@@ -155,7 +168,9 @@ class CVModel extends PostgresModel
       $response->query_result = $result;
     } catch (Exception $e) {
       $response->message = "Something went wrong. {$e->getMessage()}";
+      TransactionModel::rollback();
     }
+    TransactionModel::commit();
     return $response;
   }
 }
